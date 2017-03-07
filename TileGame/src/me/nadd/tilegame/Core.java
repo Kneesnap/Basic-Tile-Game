@@ -23,6 +23,7 @@ public class Core {
 	private static boolean isGoing;
 	private static List<Entity> entities = new ArrayList<>();
 	private static GameMap gameMap = new GameMap(MAP_SIZE_X, MAP_SIZE_Z);
+        private static int level = 1;
   
 	public static void initGame(){
 		System.out.println("TileGame - Starting...");
@@ -44,11 +45,11 @@ public class Core {
 	 */
 	public static void startGame(){
 		if(!isGoing){
-                        System.out.println("STARTING GAME");
+                        System.out.println("STARTING GAME: LEVEL " + level);
 			isGoing = true;
 			getEntities().clear();
 			getEntities().add(new Player(0, 15));
-			gameMap.generateMap(4);
+			gameMap.generateMap(level);
 			GameRender.openGUI(new GUIGame());
 		}
 	}
@@ -59,6 +60,7 @@ public class Core {
 	public static void stopGame() {
 		if(isGoing){
 			GameRender.openGUI(new GUIMainMenu());
+                        level = 1;
 			isGoing = false;
 		}
 	}
@@ -68,6 +70,13 @@ public class Core {
 		List<Entity> ent = new ArrayList<Entity>();
 		entities.forEach(ent::add);
 		ent.forEach(Entity::onTick);
+                for (Player p : getPlayers()){
+                    if (p.getX() == 15 && p.getY() == 0){
+                        level++;
+                        isGoing = false;
+                        startGame();
+                    }
+                }
 	}
   
 	/**
