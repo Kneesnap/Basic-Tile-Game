@@ -44,10 +44,11 @@ public class Core {
 	 */
 	public static void startGame(){
 		if(!isGoing){
+                        System.out.println("STARTING GAME");
 			isGoing = true;
 			getEntities().clear();
-			gameMap.generateMap();
 			getEntities().add(new Player(1, 1));
+			gameMap.generateMap();
 			GameRender.openGUI(new GUIGame());
 		}
 	}

@@ -15,7 +15,6 @@ public class GameMap {
 	
 	public GameMap(int xSize, int ySize){
 		this.tiles = new Tile[xSize][ySize];
-		generateMap();
 	}
   
 	/**
@@ -26,7 +25,8 @@ public class GameMap {
 		for(int y = 0; y < tiles.length; y++)
 			for(int x = 0; x < tiles[y].length; x++)
 				tiles[y][x] = new Tile(x, y);
-		Core.getEntities().add(new BasicEnemy(4, 4));
+		Core.getEntities().add(new BasicEnemy(15, 15));
+                
 	}
   
 	
