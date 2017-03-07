@@ -4,6 +4,9 @@ import me.nadd.tilegame.Core;
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.Player;
 
+
+//XxXxGraffitixXxX
+
 /**
  * Basic AI. Does nothing.
  * 
