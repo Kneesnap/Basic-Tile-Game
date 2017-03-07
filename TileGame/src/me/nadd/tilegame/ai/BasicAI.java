@@ -7,7 +7,7 @@ public class BasicAI extends AI{
     private Entity target;
     private int agressionLevel;
     private boolean randMovement;
-    private int wait = 50;
+    private int wait = 75;
     
     public BasicAI(){
         this(null);
@@ -82,7 +82,7 @@ public class BasicAI extends AI{
         if (wait  <= 0){
             dumbMove();
             attackNearestPlayer();
-            wait = 50;
+            wait = 75;
         }
         
     }
