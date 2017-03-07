@@ -9,9 +9,6 @@ import me.nadd.tilegame.entities.Entity;
  */
 public class DumbAI extends AI {
 
-	public DumbAI(Entity entity) {
-		super(entity);
-	}
 
 	@Override
 	public void update() {

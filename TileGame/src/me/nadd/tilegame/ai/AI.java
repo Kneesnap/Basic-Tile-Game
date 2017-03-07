@@ -14,9 +14,9 @@ import me.nadd.tilegame.entities.Player;
 public abstract class AI {
 	private Entity entity;
 	
-	public AI(Entity entity) {
-		this.entity = entity;
-	}
+        public void setEntity(Entity entity){
+            this.entity = entity;
+        }
   
 	/**
 	 * Ticks the AI.

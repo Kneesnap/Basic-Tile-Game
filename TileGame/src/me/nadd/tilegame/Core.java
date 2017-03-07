@@ -47,8 +47,8 @@ public class Core {
                         System.out.println("STARTING GAME");
 			isGoing = true;
 			getEntities().clear();
-			getEntities().add(new Player(1, 1));
-			gameMap.generateMap();
+			getEntities().add(new Player(0, 15));
+			gameMap.generateMap(4);
 			GameRender.openGUI(new GUIGame());
 		}
 	}

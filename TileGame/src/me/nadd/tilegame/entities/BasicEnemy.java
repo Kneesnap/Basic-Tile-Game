@@ -9,7 +9,7 @@ import me.nadd.tilegame.ai.DumbAI;
 public class BasicEnemy extends Entity {
 	public BasicEnemy(int x, int y) {
 		super(x, y);
-		this.setAI(new BasicAI(this, null, 1, true));
+		this.setAI(new BasicAI(null, 2, true));
 	}
 	
 	public ReadableColor getColor() {

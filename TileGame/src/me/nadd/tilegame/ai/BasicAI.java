@@ -9,17 +9,16 @@ public class BasicAI extends AI{
     private boolean randMovement;
     private int wait = 50;
     
-    public BasicAI(Entity entity){
-        this(entity, null);
+    public BasicAI(){
+        this(null);
     }
     
-    public BasicAI(Entity entity, Entity target){
-        this(entity, target, 10, false);
+    public BasicAI(Entity target){
+        this(target, 10, false);
     }
     
-    public BasicAI(Entity entity, Entity target,
+    public BasicAI(Entity target,
             int agressionLevel, boolean randMovement){
-        super(entity);
         this.target = target;
         if (target == null && !Core.getPlayers().isEmpty()){
             this.target = Core.getPlayers().get(0);

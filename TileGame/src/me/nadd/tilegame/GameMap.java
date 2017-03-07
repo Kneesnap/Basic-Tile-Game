@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.nadd.tilegame.entities.BasicEnemy;
+import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.tiles.Tile;
 
 /**
@@ -12,21 +13,34 @@ import me.nadd.tilegame.tiles.Tile;
 public class GameMap {
 	
 	private Tile[][] tiles;
+        private int xSize;
+        private int ySize;
 	
 	public GameMap(int xSize, int ySize){
 		this.tiles = new Tile[xSize][ySize];
+                this.xSize = xSize;
+                this.ySize = ySize;
 	}
   
 	/**
 	 * Randomly generates the map.
 	 */
-	public void generateMap(){
+	public void generateMap(int numberOfEntities){
 		//TODO: Populate with holes, enemies, checkpoint, etc.
 		for(int y = 0; y < tiles.length; y++)
 			for(int x = 0; x < tiles[y].length; x++)
 				tiles[y][x] = new Tile(x, y);
-		Core.getEntities().add(new BasicEnemy(15, 15));
                 
+                for (int i = 0 ; i < numberOfEntities ; i++)
+                    while (true){
+                        int randX = (int) ((Math.random() * (xSize / 2)) + ((xSize / 2) - 1));
+                        int randY = (int) (Math.random() * (ySize / 2));
+                        for (Entity e : Core.getEntities())
+                            if (e.getX() == randX || e.getY() == randY)
+                                continue;
+                        Core.getEntities().add(new BasicEnemy(randX, randY));
+                        break;
+                    }
 	}
   
 	

@@ -35,8 +35,10 @@ public class Entity implements Drawable {
 	 * Runs every tick. Will run AI by default.
 	 */
 	public void onTick(){
-		if(this.ai != null && this.isAlive())
+		if(this.ai != null && this.isAlive()){
+                        this.ai.setEntity(this);
 			this.ai.update();
+                }
 		if(!this.isAlive())
 			Core.getEntities().remove(this);
 	}
