@@ -17,8 +17,8 @@ import me.nadd.tilegame.gui.GUIMainMenu;
  */
 public class Core {
   
-	private static int MAP_SIZE_X = 5;
-	private static int MAP_SIZE_Z = 10;
+	private static int MAP_SIZE_X = 16;
+	private static int MAP_SIZE_Z = 16;
   
 	private static boolean isGoing;
 	private static List<Entity> entities = new ArrayList<>();
