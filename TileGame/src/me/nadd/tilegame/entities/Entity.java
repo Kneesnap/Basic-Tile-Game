@@ -19,6 +19,11 @@ public class Entity implements Drawable {
 	private int x;
 	private int y;
 	private AI ai;
+	private boolean isAlive = true;
+	
+	public Entity(int x, int y) {
+		this(x, y, null);
+	}
   
 	public Entity(int x, int y, AI ai) {
 		this.x = x;
@@ -30,8 +35,10 @@ public class Entity implements Drawable {
 	 * Runs every tick. Will run AI by default.
 	 */
 	public void onTick(){
-		if(this.ai != null)
+		if(this.ai != null && this.isAlive())
 			this.ai.update();
+		if(!this.isAlive())
+			Core.getEntities().remove(this);
 	}
   
 	/**
@@ -100,5 +107,44 @@ public class Entity implements Drawable {
 	@Override
 	public ReadableColor getColor() {
 		return Color.YELLOW;
+	}
+	
+	/**
+	 * Can this entity attack another entity?
+	 */
+	public boolean canAttack(Entity ent) {
+		int xDif = Math.abs(getX() - ent.getX());
+		int yDif = Math.abs(getY() - ent.getY());
+		return xDif + yDif == 1;
+	}
+	
+	/**
+	 * Attack another entity. Silently fails if canAttack returns false.
+	 */
+	public void attackEntity(Entity ent) {
+		if(!canAttack(ent))
+			return;
+		ent.kill();
+	}
+	
+	/**
+	 * Set this entity as dead.
+	 */
+	public void kill() {
+		this.isAlive = false;
+	}
+	
+	/**
+	 * Is this entity alive?
+	 */
+	public boolean isAlive() {
+		return this.isAlive;
+	}
+	
+	/**
+	 * Set the AI.
+	 */
+	public void setAI(AI ai) {
+		this.ai = ai;
 	}
 }

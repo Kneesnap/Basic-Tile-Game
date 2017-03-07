@@ -9,7 +9,6 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
 
 import me.nadd.tilegame.controls.ActionControls;
-import me.nadd.tilegame.gui.GUIMainMenu;
 import me.nadd.tilegame.gui.component.GuiComponent;
 
 public class KeyboardListener extends GLFWKeyCallback {
@@ -20,7 +19,7 @@ public class KeyboardListener extends GLFWKeyCallback {
 	
 	public KeyboardListener() {
 		add(new KeyListener(ActionControls.STOP_KEY, event -> Core.closeGame()));
-		add(new KeyListener(GLFW.GLFW_KEY_SPACE, event -> GameRender.openGUI(new GUIMainMenu())));
+		add(new KeyListener(GLFW.GLFW_KEY_SPACE, event -> Core.stopGame()));
 		
 		GLFW.glfwSetMouseButtonCallback(GameRender.getWindow(), GLFWMouseButtonCallback.create((window, button, action, mods) -> {
 		    if(GameRender.getCurrentScreen() != null && action == GLFW.GLFW_PRESS && button == 0)

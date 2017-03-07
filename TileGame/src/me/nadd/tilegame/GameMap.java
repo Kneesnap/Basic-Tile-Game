@@ -3,7 +3,7 @@ package me.nadd.tilegame;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.nadd.tilegame.entities.Player;
+import me.nadd.tilegame.entities.BasicEnemy;
 import me.nadd.tilegame.tiles.Tile;
 
 /**
@@ -26,7 +26,7 @@ public class GameMap {
 		for(int y = 0; y < tiles.length; y++)
 			for(int x = 0; x < tiles[y].length; x++)
 				tiles[y][x] = new Tile(x, y);
-		Core.getEntities().add(new Player(1, 1));
+		Core.getEntities().add(new BasicEnemy(4, 4));
 	}
   
 	

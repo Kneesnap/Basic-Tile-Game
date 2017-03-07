@@ -1,7 +1,5 @@
 package me.nadd.tilegame;
 
-import java.awt.Font;
-
 import me.nadd.tilegame.gui.GUI;
 import me.nadd.tilegame.gui.GUIMainMenu;
 
@@ -36,8 +34,6 @@ public class GameRender {
 		GLFW.glfwSetKeyCallback(mainWindowId, new KeyboardListener());
 		GLFW.glfwMakeContextCurrent(mainWindowId);
 		GL.createCapabilities();
-		 
-        
 		startRendering();
 	}
 	
@@ -82,6 +78,8 @@ public class GameRender {
 	public static void renderGame() {
 		if(currentScreen != null)
 			currentScreen.draw();
+		else 
+			openGUI(new GUIMainMenu());
 	}
 	
 	/**

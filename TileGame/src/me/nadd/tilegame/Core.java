@@ -5,6 +5,8 @@ import java.util.List;
 
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.Player;
+import me.nadd.tilegame.gui.GUIGame;
+import me.nadd.tilegame.gui.GUIMainMenu;
 
 /**
  * Core - The main core of the game.
@@ -43,25 +45,28 @@ public class Core {
 	public static void startGame(){
 		if(!isGoing){
 			isGoing = true;
-			//Remove all entities
-			//Randomize the board
-			//Add Player(s)
-			//Open Game GUI
+			getEntities().clear();
+			gameMap.generateMap();
+			getEntities().add(new Player(1, 1));
+			GameRender.openGUI(new GUIGame());
 		}
 	}
   
 	/**
 	 * Stops the game. Fails silently if there is no current game.
 	 */
-	public static void stopGame(){
+	public static void stopGame() {
 		if(isGoing){
-			//Open Main Menu
+			GameRender.openGUI(new GUIMainMenu());
 			isGoing = false;
 		}
 	}
 	
 	public static void doGameTick(){
-		getEntities().forEach(Entity::onTick);
+		//  ENTITY TICK  //
+		List<Entity> ent = new ArrayList<Entity>();
+		entities.forEach(ent::add);
+		ent.forEach(Entity::onTick);
 	}
   
 	/**
