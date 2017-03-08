@@ -7,18 +7,21 @@ public class BasicAI extends AI{
     private Entity target;
     private int agressionLevel;
     private boolean randMovement;
-    private int wait = 75;
+    private int waitTime;
+    private final int WAIT_TIME;
     
     public BasicAI(){
         this(null);
     }
     
     public BasicAI(Entity target){
-        this(target, 10, false);
+        this(target, 10, false, 75);
     }
     
     public BasicAI(Entity target,
-            int agressionLevel, boolean randMovement){
+            int agressionLevel, boolean randMovement, int waitTime){
+        this.waitTime = waitTime;
+        this.WAIT_TIME = waitTime;
         this.target = target;
         if (target == null && !Core.getPlayers().isEmpty()){
             this.target = Core.getPlayers().get(0);
@@ -78,11 +81,11 @@ public class BasicAI extends AI{
     
     @Override
     public void update() {
-        wait--;
-        if (wait  <= 0){
+        waitTime--;
+        if (waitTime  <= 0){
             dumbMove();
             attackNearestPlayer();
-            wait = 75;
+            waitTime = WAIT_TIME;
         }
         
     }
