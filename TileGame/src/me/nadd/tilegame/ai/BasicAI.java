@@ -32,17 +32,22 @@ public class BasicAI extends AI{
     
     public void dumbMove(){
         if (ifMove()){
-            int xDif = (target.getX() - getEntity().getX());
-            int yDif = (target.getY() - getEntity().getY());
-            if (Math.abs(xDif) > Math.abs(yDif) && xDif != 0)
-                getEntity().moveX(xDif / Math.abs(xDif));
-            else if (yDif != 0)
-                getEntity().moveY(yDif / Math.abs(yDif));
+            smartMove();
         }
         else if (randMovement){
             randMove();
         }    
     }
+    
+    public void smartMove(){
+                int xDif = (target.getX() - getEntity().getX());
+                int yDif = (target.getY() - getEntity().getY());
+                if (Math.abs(xDif) > Math.abs(yDif) && xDif != 0)
+                    getEntity().moveX(xDif / Math.abs(xDif));
+                else if (yDif != 0)
+                    getEntity().moveY(yDif / Math.abs(yDif));
+    }
+        
     
     public boolean ifMove(){
         double decision = Math.random() * 10 + 1;
