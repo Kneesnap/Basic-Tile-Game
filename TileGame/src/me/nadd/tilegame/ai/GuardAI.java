@@ -50,7 +50,7 @@ public class GuardAI extends AI {
         waitTime--;
         
         if (waitTime <= 0){
-            System.out.println(zAmountDown + " " + xAmountLeft + " " + zAmountUp + " " + xAmountRight);
+            //System.out.println(zAmountDown + " " + xAmountLeft + " " + zAmountUp + " " + xAmountRight);
             if (zAmountDown > 0){
                 getEntity().moveY(1);
                 zAmountDown--;
