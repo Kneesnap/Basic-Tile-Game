@@ -48,7 +48,7 @@ public class Core {
                         System.out.println("STARTING GAME: LEVEL " + level);
 			isGoing = true;
 			getEntities().clear();
-			getEntities().add(new Player(0, 15));
+			getEntities().add(new Player(0, MAP_SIZE_Z-1));
 			gameMap.generateMap(level);
 			GameRender.openGUI(new GUIGame());
 		}
@@ -71,7 +71,7 @@ public class Core {
 		entities.forEach(ent::add);
 		ent.forEach(Entity::onTick);
                 for (Player p : getPlayers()){
-                    if (p.getX() == 15 && p.getY() == 0){
+                    if (p.getX() == MAP_SIZE_X-1 && p.getY() == 0){
                         level++;
                         isGoing = false;
                         startGame();
