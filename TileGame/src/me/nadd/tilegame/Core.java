@@ -151,7 +151,9 @@ public class Core {
             
             return minDistEntity;
         }
-        
+        public static int getLevel(){
+            return level;
+        }
   
 	/**
 	 * Return the game map.

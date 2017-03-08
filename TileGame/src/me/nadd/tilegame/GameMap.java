@@ -38,7 +38,11 @@ public class GameMap {
                         for (Entity e : Core.getEntities())
                             if (e.getX() == randX || e.getY() == randY)
                                 continue;
-                        Core.getEntities().add(new BasicEnemy(randX, randY));
+                        //1 for Charger, anything else is Basic.
+                        if ((i+1) % 3 == 0)
+                            Core.getEntities().add(new BasicEnemy(randX, randY, 1));
+                        else
+                            Core.getEntities().add(new BasicEnemy(randX, randY, 0));
                         break;
                     }
 	}
