@@ -154,6 +154,12 @@ public class Core {
         public static int getLevel(){
             return level;
         }
+        public static int getMapSizeX(){
+            return MAP_SIZE_X;
+        }
+        public static int getMapSizeZ(){
+            return MAP_SIZE_Z;
+        }
   
 	/**
 	 * Return the game map.

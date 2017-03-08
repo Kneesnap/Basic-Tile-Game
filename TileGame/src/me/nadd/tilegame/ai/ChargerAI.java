@@ -36,18 +36,17 @@ public class ChargerAI extends BasicAI{
     
     public void dumbMove(){
             if (current <= randTime){
-                waitTime = 125;
+                waitTime = 200;
                 super.randMove();
                 current++;
             } else if (current <= sprintTime) {
-                waitTime = 35;
+                waitTime = 25;
                 super.smartMove();
                 current++;
             } else {
                 current = 0;
             }
     }
-    
     
     @Override
     public void update() {

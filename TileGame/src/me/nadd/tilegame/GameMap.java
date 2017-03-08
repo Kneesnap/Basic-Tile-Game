@@ -41,6 +41,8 @@ public class GameMap {
                         //1 for Charger, anything else is Basic.
                         if ((i+1) % 3 == 0)
                             Core.getEntities().add(new BasicEnemy(randX, randY, 1));
+                        else if ((i+1) % 4 == 0)
+                            Core.getEntities().add(new BasicEnemy(randX, randY, 3));
                         else
                             Core.getEntities().add(new BasicEnemy(randX, randY, 0));
                         break;

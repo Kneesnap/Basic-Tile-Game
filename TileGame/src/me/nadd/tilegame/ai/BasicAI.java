@@ -15,7 +15,7 @@ public class BasicAI extends AI{
     }
     
     public BasicAI(Entity target){
-        this(target, 10, false, 75);
+        this(target, 4, false, 75);
     }
     
     public BasicAI(Entity target,
