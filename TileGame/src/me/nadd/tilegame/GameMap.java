@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.nadd.tilegame.entities.BasicEnemy;
 import me.nadd.tilegame.entities.Entity;
+import me.nadd.tilegame.tiles.ObstacleTile;
 import me.nadd.tilegame.tiles.Tile;
 
 /**
@@ -28,8 +29,19 @@ public class GameMap {
 	public void generateMap(int numberOfEntities){
 		//TODO: Populate with holes, enemies, checkpoint, etc.
 		for(int y = 0; y < tiles.length; y++)
-			for(int x = 0; x < tiles[y].length; x++)
+			for(int x = 0; x < tiles[y].length; x++){
+                                if (((x == (int) (tiles[y].length / 2) || x == (int) ((tiles[y].length / 2)-1))
+                                        ||(y == (int) (tiles.length / 2) || y == (int) ((tiles.length / 2)-1)))
+                                        &&(Math.random() < 0.5)
+                                        && x != 0
+                                        && x != tiles[y].length-1
+                                        && y != 0
+                                        && y != tiles.length-1){
+                                    tiles[y][x] = new ObstacleTile(x, y);
+                                    continue;
+                                }
 				tiles[y][x] = new Tile(x, y);
+                        }
                 
                 for (int i = 0 ; i < numberOfEntities ; i++)
                     while (true){
