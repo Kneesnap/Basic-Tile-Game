@@ -149,4 +149,7 @@ public class Entity implements Drawable {
 	public void setAI(AI ai) {
 		this.ai = ai;
 	}
+        public AI getAI(){
+            return ai;
+        }
 }

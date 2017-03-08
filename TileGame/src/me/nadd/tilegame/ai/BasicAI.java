@@ -84,11 +84,14 @@ public class BasicAI extends AI{
         waitTime--;
         if (waitTime  <= 0){
             dumbMove();
-            attackNearestPlayer();
+            if (!Core.getLivePlayers().isEmpty())
+                attackNearestPlayer();
+            else
+                attackNearest();
             waitTime = WAIT_TIME;
         }
-        
+        if (Core.getLivePlayers().isEmpty()){
+            this.setTarget(Core.getNearestEntity(this.getEntity()));
+        }
     }
-    
-    
 }

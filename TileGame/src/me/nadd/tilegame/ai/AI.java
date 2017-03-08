@@ -41,4 +41,12 @@ public abstract class AI {
 			}
 		}
 	}
+        protected void attackNearest() {
+            for(Entity e : Core.getEntities()){
+                if(getEntity().canAttack(e)){
+                    getEntity().attackEntity(e);
+                    break;
+                }
+            }
+        }
 }
