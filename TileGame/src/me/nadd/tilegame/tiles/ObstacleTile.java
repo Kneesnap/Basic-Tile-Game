@@ -19,7 +19,7 @@ import org.lwjgl.util.ReadableColor;
  */
 public class ObstacleTile extends Tile {
     
-    public ObstacleTile(int x, int y){
+    public ObstacleTile(int x, int y) throws MalformedURLException{
         super(x, y);
     }
     public boolean isWalkable(Entity ent){
