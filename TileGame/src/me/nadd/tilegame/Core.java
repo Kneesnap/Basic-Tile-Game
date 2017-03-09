@@ -26,7 +26,7 @@ public class Core {
 	private static GameMap gameMap = new GameMap(MAP_SIZE_X, MAP_SIZE_Z);
         private static int level = 1;
   
-	public static void initGame() throws IOException{
+	public static void initGame(){
 		System.out.println("TileGame - Starting...");
 		GameRender.createWindow();
 		startGame();
@@ -44,7 +44,7 @@ public class Core {
 	/**
 	 * Starts the game. Fails silently if a game is already taking place.
 	 */
-	public static void startGame() throws IOException{
+	public static void startGame(){
 		if(!isGoing){
                         System.out.println("STARTING GAME: LEVEL " + level);
 			isGoing = true;
@@ -66,7 +66,7 @@ public class Core {
 		}
 	}
 	
-	public static void doGameTick() throws IOException{
+	public static void doGameTick(){
 		//  ENTITY TICK  //
 		List<Entity> ent = new ArrayList<Entity>();
 		entities.forEach(ent::add);
