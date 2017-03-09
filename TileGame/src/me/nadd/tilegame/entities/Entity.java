@@ -12,19 +12,21 @@ import me.nadd.tilegame.tiles.Tile;
  * Base Entity class
  * 
  * Created March 2, 2017.
- * @author Kneesnap
+ * @author Nathan Geddis
  */
 public class Entity implements Drawable {
-  
+        
+        // x and y represent the postion of the entity
 	private int x;
 	private int y;
-	private AI ai;
-	private boolean isAlive = true;
+	private AI ai; // ai controls entity behavior
+	private boolean isAlive = true; //isAlive represents 
 	
+        // baisc constructor take in x and y positions set ai to null
 	public Entity(int x, int y) {
 		this(x, y, null);
 	}
-  
+        // constructor take in x and y positions, and type of ai
 	public Entity(int x, int y, AI ai) {
 		this.x = x;
 		this.y = y;
@@ -35,12 +37,14 @@ public class Entity implements Drawable {
 	 * Runs every tick. Will run AI by default.
 	 */
 	public void onTick(){
-		if(this.ai != null && this.isAlive()){
-                        this.ai.setEntity(this);
-			this.ai.update();
-                }
-		if(!this.isAlive())
-			Core.getEntities().remove(this);
+            // if Entity is alive and has ai update entity
+            if(this.ai != null && this.isAlive()){
+                this.ai.setEntity(this);
+                this.ai.update();
+            }
+            // removes entity if it is not alive
+	    if(!this.isAlive())
+		Core.getEntities().remove(this);
 	}
   
 	/**
@@ -112,7 +116,7 @@ public class Entity implements Drawable {
 	}
 	
 	/**
-	 * Can this entity attack another entity?
+	 * Checks if this entity attack another entity
 	 */
 	public boolean canAttack(Entity ent) {
 		int xDif = Math.abs(getX() - ent.getX());
@@ -137,7 +141,7 @@ public class Entity implements Drawable {
 	}
 	
 	/**
-	 * Is this entity alive?
+	 * Check if this entity is alive
 	 */
 	public boolean isAlive() {
 		return this.isAlive;
@@ -149,6 +153,9 @@ public class Entity implements Drawable {
 	public void setAI(AI ai) {
 		this.ai = ai;
 	}
+        /**
+         * Get the AI
+         */
         public AI getAI(){
             return ai;
         }
