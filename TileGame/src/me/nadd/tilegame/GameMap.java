@@ -47,22 +47,54 @@ public class GameMap {
                                     continue;
                                 }
                 //Populates entities
-                for (int i = 0 ; i < numberOfEntities ; i++)
-                    while (true){
-                        int randX = (int) ((Math.random() * (xSize / 2)) + ((xSize / 2) - 1));
-                        int randY = (int) (Math.random() * (ySize / 2));
-                        for (Entity e : Core.getEntities())
-                            if (e.getX() == randX || e.getY() == randY)
-                                continue;
-                        //1 for Charger, anything else is Basic.
-                        if ((i+1) % 3 == 0)
-                            Core.getEntities().add(new BasicEnemy(randX, randY, 1));
-                        else if ((i+1) % 4 == 0)
-                            Core.getEntities().add(new BasicEnemy(randX, randY, 3));
-                        else
+                if (numberOfEntities != 5 && numberOfEntities != 7)
+                    for (int i = 0 ; i < numberOfEntities ; i++)
+                        while (true){
+                            int randX = (int) ((Math.random() * (xSize / 2)) + ((xSize / 2) - 1));
+                            int randY = (int) (Math.random() * (ySize / 2));
+                            for (Entity e : Core.getEntities())
+                                if (e.getX() == randX || e.getY() == randY)
+                                    continue;
+                            //1 for Charger, anything else is Basic.
+                            if ((i+1) % 3 == 0)
+                                Core.getEntities().add(new BasicEnemy(randX, randY, 1));
+                            else if ((i+1) % 4 == 0)
+                                Core.getEntities().add(new BasicEnemy(randX, randY, 3));
+                            else
+                                Core.getEntities().add(new BasicEnemy(randX, randY, 0));
+                            break;
+                        }
+                else if (numberOfEntities == 5){
+                    for (int i = 0 ; i < numberOfEntities ; i++)
+                        while (true){
+                            int randX = (int) ((Math.random() * (xSize / 2)) + ((xSize / 2) - 1));
+                            int randY = (int) (Math.random() * (ySize / 2));
+                            for (Entity e : Core.getEntities())
+                                if (e.getX() == randX || e.getY() == randY || e.getX() == randX-1 || e.getY() == randY+1)
+                                    continue;
+                            //1 for Charger, anything else is Basic.
+                            
                             Core.getEntities().add(new BasicEnemy(randX, randY, 0));
-                        break;
-                    }
+                            Core.getEntities().add(new BasicEnemy(randX, randY, 0));
+                            
+                            break;
+                        }
+                }
+                else if (numberOfEntities == 7){
+                    for (int i = 0 ; i < numberOfEntities ; i++)
+                        while (true){
+                            int randX = (int) ((Math.random() * (xSize / 2)) + ((xSize / 2) - 1));
+                            int randY = (int) (Math.random() * (ySize / 2));
+                            for (Entity e : Core.getEntities())
+                                if (e.getX() == randX || e.getY() == randY)
+                                    continue;
+                            //1 for Charger, anything else is Basic.
+                            
+                            Core.getEntities().add(new BasicEnemy(randX, randY, 1));
+                            
+                            break;
+                        }
+                }
 	}
   
 	
