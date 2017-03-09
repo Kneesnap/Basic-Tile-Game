@@ -28,7 +28,7 @@ public class GameMap {
 	/**
 	 * Randomly generates the map.
 	 */
-	public void generateMap(int numberOfEntities) throws MalformedURLException{
+	public void generateMap(int numberOfEntities){
 		//TODO: Populate with holes, enemies, checkpoint, etc.
                 //Populates Tiles
 		for(int y = 0; y < tiles.length; y++)
