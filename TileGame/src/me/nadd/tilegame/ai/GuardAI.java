@@ -14,9 +14,9 @@ import me.nadd.tilegame.entities.Entity;
  */
 public class GuardAI extends AI {
     private Entity target;
-    private int zAmountDown=0;
+    private int yAmountDown=0;
     private int xAmountRight=0;
-    private int zAmountUp=0;
+    private int yAmountUp=0;
     private int xAmountLeft=0;
     private int waitTime;
     private int WAIT_TIME;
@@ -36,14 +36,11 @@ public class GuardAI extends AI {
     }
         
     public void update(){
-        if (zAmountDown<=0&&xAmountRight<=0&&zAmountUp<=0&&xAmountLeft<=0){
-            zAmountDown = (int) ((Math.random() * (Core.getMapSizeZ()/2)));
+        if (yAmountDown<=0&&xAmountRight<=0&&yAmountUp<=0&&xAmountLeft<=0){
+            yAmountDown = (int) ((Math.random() * (Core.getMapSizeZ()/2)));
             xAmountLeft = (int) ((Math.random() * (Core.getMapSizeZ()/2)));
-            zAmountUp = 1;
+            yAmountUp = 1;
             xAmountRight = 1;
-
-
-            
             
             //(int) ((Math.random() * (Core.getMapSizeZ()/2)) +(Core.getMapSizeZ()/2));
         }
@@ -51,17 +48,17 @@ public class GuardAI extends AI {
         
         if (waitTime <= 0){
             //System.out.println(zAmountDown + " " + xAmountLeft + " " + zAmountUp + " " + xAmountRight);
-            if (zAmountDown > 0){
+            if (yAmountDown > 0){
                 getEntity().moveY(1);
-                zAmountDown--;
+                yAmountDown--;
             }else if (xAmountRight > 0){
                 xAmountRight = Core.getMapSizeX()-2-getEntity().getX();
                 getEntity().moveX(1);
             }else if (xAmountLeft > 0){
                 getEntity().moveX(-1);
                 xAmountLeft--;
-            }else if (zAmountUp > 0){
-                zAmountUp = getEntity().getY()-1;
+            }else if (yAmountUp > 0){
+                yAmountUp = getEntity().getY()-1;
                 getEntity().moveY(-1);
             }
             waitTime = WAIT_TIME;
