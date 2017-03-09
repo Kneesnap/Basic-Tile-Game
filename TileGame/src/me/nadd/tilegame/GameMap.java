@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.nadd.tilegame.entities.BasicEnemy;
+import me.nadd.tilegame.entities.ChargerEnemy;
 import me.nadd.tilegame.entities.Entity;
+import me.nadd.tilegame.entities.GuardEnemy;
 import me.nadd.tilegame.tiles.ObstacleTile;
 import me.nadd.tilegame.tiles.Tile;
 
@@ -60,19 +62,19 @@ public class GameMap {
                             }
                             //1 for Charger, anything else is Basic.
                             if (numberOfEntities == 5){
-                                Core.getEntities().add(new BasicEnemy(randX, randY, 0));
-                                Core.getEntities().add(new BasicEnemy(randX, randY, 0));
+                                Core.getEntities().add(new BasicEnemy(randX, randY));
+                                Core.getEntities().add(new BasicEnemy(randX, randY));
                                 break;
                             } else if (numberOfEntities == 7) {
-                                Core.getEntities().add(new BasicEnemy(randX, randY, 1));
+                                Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 25));
                                 break;
                             } else {
                                 if ((i+1) % 3 == 0)
-                                    Core.getEntities().add(new BasicEnemy(randX, randY, 1));
+                                    Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 25));
                                 else if ((i+1) % 4 == 0)
-                                    Core.getEntities().add(new BasicEnemy(randX, randY, 3));
+                                    Core.getEntities().add(new GuardEnemy(randX, randY, 750));
                                 else
-                                    Core.getEntities().add(new BasicEnemy(randX, randY, 0));
+                                    Core.getEntities().add(new BasicEnemy(randX, randY));
                                 break;
                             }
                         }
