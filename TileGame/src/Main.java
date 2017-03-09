@@ -1,4 +1,3 @@
-import java.io.IOException;
 import me.nadd.tilegame.Core;
 
 public class Main {
