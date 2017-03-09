@@ -20,7 +20,7 @@ public class Tile implements Drawable {
 	public Tile(int x, int y){
 		this.x = x;
 		this.y = y;
-	}
+        }
   
 	/**
 	 * Returns the X Coordinate of this tile.

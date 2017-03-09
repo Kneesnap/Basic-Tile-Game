@@ -1,5 +1,6 @@
 package me.nadd.tilegame;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class Core {
 	private static GameMap gameMap = new GameMap(MAP_SIZE_X, MAP_SIZE_Z);
         private static int level = 1;
   
-	public static void initGame(){
+	public static void initGame() throws IOException{
 		System.out.println("TileGame - Starting...");
 		GameRender.createWindow();
 		startGame();
@@ -43,7 +44,7 @@ public class Core {
 	/**
 	 * Starts the game. Fails silently if a game is already taking place.
 	 */
-	public static void startGame(){
+	public static void startGame() throws IOException{
 		if(!isGoing){
                         System.out.println("STARTING GAME: LEVEL " + level);
 			isGoing = true;
@@ -65,7 +66,7 @@ public class Core {
 		}
 	}
 	
-	public static void doGameTick(){
+	public static void doGameTick() throws IOException{
 		//  ENTITY TICK  //
 		List<Entity> ent = new ArrayList<Entity>();
 		entities.forEach(ent::add);

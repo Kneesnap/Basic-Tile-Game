@@ -1,5 +1,6 @@
 package me.nadd.tilegame;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,13 +27,18 @@ public class GameMap {
 	/**
 	 * Randomly generates the map.
 	 */
-	public void generateMap(int numberOfEntities){
+	public void generateMap(int numberOfEntities) throws IOException{
 		//TODO: Populate with holes, enemies, checkpoint, etc.
+                //Populates Tiles
 		for(int y = 0; y < tiles.length; y++)
-			for(int x = 0; x < tiles[y].length; x++){
-                                if (((x == (int) (tiles[y].length / 2) || x == (int) ((tiles[y].length / 2)-1))
+			for(int x = 0; x < tiles[y].length; x++)
+				tiles[y][x] = new Tile(x, y);
+                //Populates Obstacles
+                for(int y = 0; y < tiles.length; y++)
+                        for(int x = 0; x < tiles[y].length; x++)
+                            if (((x == (int) (tiles[y].length / 2) || x == (int) ((tiles[y].length / 2)-1))
                                         ||(y == (int) (tiles.length / 2) || y == (int) ((tiles.length / 2)-1)))
-                                        &&(Math.random() < 0.5)
+                                        &&(Math.random() < 0.25)
                                         && x != 0
                                         && x != tiles[y].length-1
                                         && y != 0
@@ -40,9 +46,7 @@ public class GameMap {
                                     tiles[y][x] = new ObstacleTile(x, y);
                                     continue;
                                 }
-				tiles[y][x] = new Tile(x, y);
-                        }
-                
+                //Populates entities
                 for (int i = 0 ; i < numberOfEntities ; i++)
                     while (true){
                         int randX = (int) ((Math.random() * (xSize / 2)) + ((xSize / 2) - 1));
