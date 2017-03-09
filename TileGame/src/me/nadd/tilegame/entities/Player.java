@@ -42,5 +42,9 @@ public class Player extends Entity {
 		if(keyPress == controls.getKeyRight())
 			moveX(1);
 	}
+        public void kill() {
+		super.kill();
+                //Play DeathSound.wav
+	}
 	
 }
