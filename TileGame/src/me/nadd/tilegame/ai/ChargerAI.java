@@ -15,32 +15,30 @@ import me.nadd.tilegame.entities.Entity;
 public class ChargerAI extends BasicAI{
     private Entity target;
     private int randTime;
-    private final int RAND_TIME;
     private int sprintTime;
-    private final int SPRINT_TIME;
     private int current = 0 + (int) (Math.random() * 10);
-    private int max = 0;
     private int waitTime = 0;
+    private final int WAIT_TIME;
     
-    public ChargerAI(Entity target, int randTime, int sprintTime){
+    public ChargerAI(Entity target, int randTime, int sprintTime, int waitTime){
         this.target = target;
         if (target == null && !Core.getPlayers().isEmpty()){
             this.target = Core.getPlayers().get(0);
         }
         this.randTime = randTime;
-        this.RAND_TIME = randTime;
         this.sprintTime = sprintTime + randTime;
-        this.SPRINT_TIME = sprintTime + randTime;
-        max = sprintTime + randTime + 1;
+        this.waitTime = waitTime;
+        this.WAIT_TIME = waitTime;
+        
     }
     
     public void dumbMove(){
             if (current <= randTime){
-                waitTime = 200;
+                waitTime = WAIT_TIME * 8;
                 super.randMove();
                 current++;
             } else if (current <= sprintTime) {
-                waitTime = 25;
+                waitTime = WAIT_TIME;
                 super.smartMove();
                 current++;
             } else {
