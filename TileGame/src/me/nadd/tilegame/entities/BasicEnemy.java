@@ -9,7 +9,6 @@ import me.nadd.tilegame.ai.DumbAI;
 import me.nadd.tilegame.ai.GuardAI;
 
 public class BasicEnemy extends Entity {
-        private int type = 0;
         
 	public BasicEnemy(int x, int y) {
 		super(x, y);
