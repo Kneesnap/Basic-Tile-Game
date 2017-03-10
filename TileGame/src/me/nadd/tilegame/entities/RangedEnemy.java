@@ -25,7 +25,7 @@ public class RangedEnemy extends BasicEnemy {
             attackDirection = 1;
             return true;
         }
-	return false;
+        return false;
     }
     
     /**
@@ -39,6 +39,5 @@ public class RangedEnemy extends BasicEnemy {
                 // code to create a vertical ranged attack
             }
         }
-        
     }
 }

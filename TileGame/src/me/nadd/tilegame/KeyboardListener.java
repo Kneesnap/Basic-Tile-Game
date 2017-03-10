@@ -38,7 +38,6 @@ public class KeyboardListener extends GLFWKeyCallback {
 		keys[key] = pressed;
 		KeyEvent event = new KeyEvent(key, action, window);
 		this.listeners.stream().filter(l -> l.getKeyCode() == event.getKeyCode()).forEach((listener) -> listener.onPress(event));
-		Core.getPlayers().forEach(p -> p.handleKeyPress(key));
 	}
 	
 	public static boolean isKeyDown(int keycode) {

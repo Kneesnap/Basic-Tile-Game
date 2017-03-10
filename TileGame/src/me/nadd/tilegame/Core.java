@@ -1,8 +1,8 @@
 package me.nadd.tilegame;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.Player;
@@ -19,17 +19,17 @@ import me.nadd.tilegame.gui.GUIMainMenu;
 public class Core {
   
 	private static int MAP_SIZE_X = 16;
-	private static int MAP_SIZE_Z = 16;
+	private static int MAP_SIZE_Y = 16;
   
 	private static boolean isGoing;
+	public static int tickCount;
 	private static List<Entity> entities = new ArrayList<>();
-	private static GameMap gameMap = new GameMap(MAP_SIZE_X, MAP_SIZE_Z);
-        private static int level = 1;
+	private static GameMap gameMap = new GameMap(MAP_SIZE_X, MAP_SIZE_Y);
+	private static int level;
   
 	public static void initGame(){
 		System.out.println("TileGame - Starting...");
 		GameRender.createWindow();
-		startGame();
 	}
   
 	/**
@@ -46,12 +46,10 @@ public class Core {
 	 */
 	public static void startGame(){
 		if(!isGoing){
-                        System.out.println("STARTING GAME: LEVEL " + level);
+			System.out.println("STARTING GAME");
 			isGoing = true;
-			getEntities().clear();
-			getEntities().add(new Player(0, MAP_SIZE_Z-1));
-			gameMap.generateMap(level);
-			GameRender.openGUI(new GUIGame());
+			level = 0;
+			nextLevel();
 		}
 	}
   
@@ -61,23 +59,38 @@ public class Core {
 	public static void stopGame() {
 		if(isGoing){
 			GameRender.openGUI(new GUIMainMenu());
-                        level = 1;
 			isGoing = false;
 		}
 	}
 	
+	/**
+	 * Increments the level
+	 */
+	public static void nextLevel() {
+		level++;
+		System.out.println("STARTING LEVEL " + level);
+		getEntities().clear();
+		getEntities().add(new Player(0, getMap().getYSize() - 1));
+		gameMap.generateMap();
+		GameRender.openGUI(new GUIGame());
+	}
+	
 	public static void doGameTick(){
+		tickCount = tickCount % 500 + 1;
 		//  ENTITY TICK  //
 		List<Entity> ent = new ArrayList<Entity>();
-		entities.forEach(ent::add);
+		getEntities().forEach(ent::add);
 		ent.forEach(Entity::onTick);
-                for (Player p : getPlayers()){
-                    if (p.getX() == MAP_SIZE_X-1 && p.getY() == 0){
-                        level++;
-                        isGoing = false;
-                        startGame();
-                    }
-                }
+		
+		if(getEntities().size() <= 1)
+			stopGame();
+	}
+	
+	/**
+	 * Checks if enough ticks have passed.
+	 */
+	public static boolean haveTicksPassed(int ticks) {
+		return ticks <= 0 || tickCount % ticks == 0;
 	}
   
 	/**
@@ -104,63 +117,21 @@ public class Core {
 				players.add((Player)e);
 		return players;
 	}
-        
-        public static List<Player> getLivePlayers(){
-            List<Player> players = new ArrayList<>();
-            for(Entity e : getEntities())
-                if(e instanceof Player && e.isAlive())
-                    players.add((Player)e);
-            return players;
-        }
-        
-        public static Entity getNearestEntity(Entity e){
-            int minX = 0;
-            int minY = 0;
-            Entity minDistEntity;
-            
-            try {
-                entities.get(1);
-            } catch (Exception ex) {
-                stopGame();
-                return e;
-            }
-            
-            if (e != entities.get(0)){
-                minX = entities.get(0).getX() - e.getX();
-                minY = entities.get(0).getY() - e.getY();
-                minDistEntity = entities.get(0);
-            } else {
-                minX = entities.get(1).getX() - e.getX();
-                minY = entities.get(1).getY() - e.getY();
-                minDistEntity = entities.get(1);
-            }
-            double minDist = Math.pow((minX*minX + minY*minY), 0.5);
-
-            for (Entity b : getEntities()){
-                if (e == b)
-                    continue;
-                int distX = b.getX() - e.getX();
-                int distY = b.getY() - e.getY();
-                double Dist = Math.pow((distX*distX + distY*distY), 0.5);
-                if (Dist < minDist){
-                    minX = distX;
-                    minY = distY;
-                    minDist = Dist;
-                    minDistEntity = b;
-                }
-            }
-            
-            return minDistEntity;
-        }
-        public static int getLevel(){
-            return level;
-        }
-        public static int getMapSizeX(){
-            return MAP_SIZE_X;
-        }
-        public static int getMapSizeZ(){
-            return MAP_SIZE_Z;
-        }
+	
+	/**
+	 * Returns all alive players
+	 */
+	public static List<Player> getLivePlayers() {
+		return getPlayers().stream().filter(Player::isAlive).collect(Collectors.toList());
+	}
+    
+	/**
+	 * Gets the current level.
+	 * @return
+	 */
+	public static int getLevel(){
+		return level;
+	}
   
 	/**
 	 * Return the game map.

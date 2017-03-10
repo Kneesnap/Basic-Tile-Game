@@ -1,5 +1,7 @@
 package me.nadd.tilegame.entities;
 
+import me.nadd.tilegame.Core;
+import me.nadd.tilegame.KeyboardListener;
 import me.nadd.tilegame.controls.DefaultControls;
 import me.nadd.tilegame.controls.PlayerControls;
 
@@ -24,27 +26,31 @@ public class Player extends Entity {
 		return this.controls;
 	}
 	
-	/**
-	 * Handles a key press.
-	 * @param keyPress
-	 */
-	public void handleKeyPress(int keyPress) {
-		//TODO: Make this check if the key is pressed, every few ticks, instead of an event system, this should feel like a game, not like typing.
-		if(keyPress == controls.getKeyUp())
-			moveY(-1);
-		
-		if(keyPress == controls.getKeyDown())
-			moveY(1);
-		
-		if(keyPress == controls.getKeyLeft())
-			moveX(-1);
-		
-		if(keyPress == controls.getKeyRight())
-			moveX(1);
-	}
-        public void kill() {
-		super.kill();
-                //Play DeathSound.wav
+	@Override
+	public void onTick() {
+		keyboardTick();
+		super.onTick();
 	}
 	
+	private void keyboardTick() {
+		if(!Core.haveTicksPassed(5))
+			return;
+		//  MOVE PLAYER  //
+		if(KeyboardListener.isKeyDown(controls.getKeyUp()))
+			moveY(-1);
+		
+		if(KeyboardListener.isKeyDown(controls.getKeyDown()))
+			moveY(1);
+		
+		if(KeyboardListener.isKeyDown(controls.getKeyLeft()))
+			moveX(-1);
+		
+		if(KeyboardListener.isKeyDown(controls.getKeyRight()))
+			moveX(1);
+	}
+	
+	public void kill() {
+		super.kill();
+		//Play DeathSound.wav
+	}
 }

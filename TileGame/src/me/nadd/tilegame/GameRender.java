@@ -37,10 +37,7 @@ public class GameRender {
 		startRendering();
 	}
 	
-	/**
-	 * Starts the render loop.
-	 */
-	public static void startRendering() {
+	private static void startRendering() {
 		//Continues until the window is shut.
         while (!isClosed()) {
         	//Clears the frame buffer.

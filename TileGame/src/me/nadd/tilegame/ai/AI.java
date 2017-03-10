@@ -5,19 +5,35 @@ import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.Player;
 
 
-//XxXxGraffitixXxX
-
 /**
  * Basic AI. Does nothing.
  * 
  */
 public abstract class AI {
 	private Entity entity;
+	private int tickDelay;
 	
-        public void setEntity(Entity entity){
-            this.entity = entity;
-        }
-  
+	/**
+	 * Sets the entity this controls.
+	 */
+	public void setEntity(Entity entity){
+		this.entity = entity;
+	}
+	
+	/**
+	 * Gets the interval of ticks the AI should be run at.
+	 */
+	public int getTickDelay() {
+		return this.tickDelay;
+	}
+	
+	/**
+	 * Sets the tick delay
+	 */
+	public void setTickDelay(int delay) {
+		this.tickDelay = delay;
+	}
+	
 	/**
 	 * Ticks the AI.
 	 */
@@ -31,7 +47,7 @@ public abstract class AI {
 	}
 	
 	/**
-	 * Attack the first player possible to attack.
+	 * Attack the nearest player if possible.
 	 */
 	protected void attackNearestPlayer() {
 		for(Player p : Core.getPlayers()){
@@ -41,12 +57,24 @@ public abstract class AI {
 			}
 		}
 	}
-        protected void attackNearest() {
-            for(Entity e : Core.getEntities()){
-                if(getEntity().canAttack(e)){
-                    getEntity().attackEntity(e);
-                    break;
-                }
-            }
-        }
+	
+	/**
+	 * Attacks the nearest entity if possible.
+	 */
+	protected void attackNearest() {
+		for(Entity e : Core.getEntities()){
+			if(getEntity().canAttack(e)){
+				getEntity().attackEntity(e);
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * Whether or not this AI should tick.
+	 * @return
+	 */
+	public boolean shouldTick() {
+		return getEntity().isAlive() && Core.haveTicksPassed(getTickDelay());
+	}
 }

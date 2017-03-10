@@ -16,13 +16,11 @@ import me.nadd.tilegame.tiles.Tile;
  */
 public class Entity implements Drawable {
         
-        // x and y represent the postion of the entity
 	private int x;
 	private int y;
 	private AI ai; // ai controls entity behavior
 	private boolean isAlive = true; //isAlive represents 
 	
-        // baisc constructor take in x and y positions set ai to null
 	public Entity(int x, int y) {
 		this(x, y, null);
 	}
@@ -37,14 +35,16 @@ public class Entity implements Drawable {
 	 * Runs every tick. Will run AI by default.
 	 */
 	public void onTick(){
-            // if Entity is alive and has ai update entity
-            if(this.ai != null && this.isAlive()){
-                this.ai.setEntity(this);
-                this.ai.update();
-            }
-            // removes entity if it is not alive
+		// Tick the AI if allowed.
+		if(this.ai != null) {
+			this.ai.setEntity(this); //shouldTick may check operations that require having the entity set
+			if(this.ai.shouldTick())
+				this.ai.update();
+		}
+		
+		// Remove entity if it is not alive
 	    if(!this.isAlive())
-		Core.getEntities().remove(this);
+	    	Core.getEntities().remove(this);
 	}
   
 	/**
@@ -65,14 +65,23 @@ public class Entity implements Drawable {
 	 * Changes the X coordinate of the entity.
 	 */
 	public void setX(int x){
-		this.x = x;
+		setPosition(x, getY());
 	}
   
 	/**
 	 * Changes the Y coordinate of the entity.
 	 */
 	public void setY(int y){
+		setPosition(getX(), y);
+	}
+	
+	/**
+	 * Sets the position of the entity without doing any checks.
+	 */
+	public void setPosition(int x, int y) {
+		this.x = x;
 		this.y = y;
+		getTile().onWalk(this);
 	}
 	
 	/**
@@ -153,10 +162,52 @@ public class Entity implements Drawable {
 	public void setAI(AI ai) {
 		this.ai = ai;
 	}
-        /**
-         * Get the AI
-         */
-        public AI getAI(){
-            return ai;
-        }
+	
+	/**
+	 * Get the AI
+	 */
+	public AI getAI(){
+		return ai;
+	}
+	
+	/**
+	 * Gets the distance to another entity
+	 */
+	public double distanceTo(Entity e) {
+		return distanceTo(e.getTile());
+	}
+	
+	/**
+	 * Returns the distance to a tile.
+	 * 
+	 * a^2 + b^2 = c^2
+	 */
+	public double distanceTo(Tile t) {
+		double aSqr = Math.pow(t.getX() - getX(), 2);
+		double bSqr = Math.pow(t.getY() - getY(), 2);
+		return Math.sqrt(aSqr + bSqr);
+	}
+	
+	/**
+	 * Returns the nearest entity.
+	 * @return
+	 */
+	public Entity getNearestEntity() {
+		double minDis = 999D;
+		Entity closest = null;
+		
+		for (Entity check : Core.getEntities()) {
+			//Can't pick ourself
+			if (this == check)
+				continue;
+			//Is this entity closer than the one we currently have selected?
+			double dis = distanceTo(check);
+			if (dis <= minDis){
+				minDis = dis;
+				closest = check;
+			}
+		}
+		
+		return closest;
+	}
 }

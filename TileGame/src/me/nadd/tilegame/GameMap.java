@@ -1,7 +1,5 @@
 package me.nadd.tilegame;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +7,7 @@ import me.nadd.tilegame.entities.BasicEnemy;
 import me.nadd.tilegame.entities.ChargerEnemy;
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.GuardEnemy;
+import me.nadd.tilegame.tiles.GoalTile;
 import me.nadd.tilegame.tiles.ObstacleTile;
 import me.nadd.tilegame.tiles.Tile;
 
@@ -18,68 +17,88 @@ import me.nadd.tilegame.tiles.Tile;
 public class GameMap {
 	
 	private Tile[][] tiles;
-        private int xSize;
-        private int ySize;
 	
 	public GameMap(int xSize, int ySize){
 		this.tiles = new Tile[xSize][ySize];
-                this.xSize = xSize;
-                this.ySize = ySize;
+	}
+	
+	/**
+	 * Returns the X size of the map.
+	 */
+	public int getXSize() {
+		return getTiles()[0].length;
+	}
+	
+	/**
+	 * Returns the Y size of the map.
+	 */
+	public int getYSize() {
+		return getTiles().length;
 	}
   
 	/**
 	 * Randomly generates the map.
+	 * 
+	 * TODO: Clean this up, create a modularized level generator that accepts settings.
 	 */
-	public void generateMap(int numberOfEntities){
+	public void generateMap(){
+		int entityCount = Core.getLevel();
 		//TODO: Populate with holes, enemies, checkpoint, etc.
-                //Populates Tiles
+		//Populates Tiles
 		for(int y = 0; y < tiles.length; y++)
 			for(int x = 0; x < tiles[y].length; x++)
-				tiles[y][x] = new Tile(x, y);
-                //Populates Obstacles
-                for(int y = 0; y < tiles.length; y++)
-                        for(int x = 0; x < tiles[y].length; x++)
-                            if (((x == (int) (tiles[y].length / 2) || x == (int) ((tiles[y].length / 2)-1))
-                                        ||(y == (int) (tiles.length / 2) || y == (int) ((tiles.length / 2)-1)))
-                                        &&(Math.random() < 0.25)
-                                        && x != 0
-                                        && x != tiles[y].length-1
-                                        && y != 0
-                                        && y != tiles.length-1){
-                                    tiles[y][x] = new ObstacleTile(x, y);
-                                    continue;
-                                }
-                //Populates entities
-                    for (int i = 0 ; i < numberOfEntities ; i++)
-                        while (true){
-                            int randX = (int) ((Math.random() * (xSize / 2)) + ((xSize / 2) - 1));
-                            int randY = (int) (Math.random() * (ySize / 2));
-                            for (Entity e : Core.getEntities()){
-                                if (numberOfEntities == 5 && (e.getX() == randX || e.getY() == randY || e.getX() == randX-1 || e.getY() == randY+1))
-                                    continue;
-                                if (e.getX() == randX || e.getY() == randY)
-                                    continue;
-                            }
-                            //1 for Charger, anything else is Basic.
-                            if (numberOfEntities == 5){
-                                Core.getEntities().add(new BasicEnemy(randX, randY));
-                                Core.getEntities().add(new BasicEnemy(randX, randY));
-                                break;
-                            } else if (numberOfEntities == 7) {
-                                Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 25));
-                                break;
-                            } else {
-                                if ((i+1) % 3 == 0)
-                                    Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 25));
-                                else if ((i+1) % 4 == 0)
-                                    Core.getEntities().add(new GuardEnemy(randX, randY, 750));
-                                else
-                                    Core.getEntities().add(new BasicEnemy(randX, randY));
-                                break;
-                            }
-                        }
+				addTile(new Tile(x, y));
+		
+		//Populates Obstacles
+		for(int y = 0; y < getYSize(); y++){
+			for(int x = 0; x < getXSize(); x++){
+				if (((x == (int) (getXSize() / 2) || x == (int) ((getXSize() / 2) - 1))
+						||(y == (int) (getYSize() / 2) || y == (int) ((getYSize() / 2) - 1)))
+						&& (Math.random() < 0.25)
+						&& x > 0
+                		&& x < getXSize()
+                		&& y > 0
+                		&& y < getYSize()){
+					addTile(new ObstacleTile(x, y));
+					continue;
+				}
+			}
+		}
+		
+		//Populates entities
+		for (int i = 0 ; i < entityCount ; i++) {
+			while (true){
+				int randX = (int) ((Math.random() * (getXSize() / 2)) + ((getXSize() / 2) - 1));
+				int randY = (int) (Math.random() * (getYSize() / 2));
+				for (Entity e : Core.getEntities()){
+					if (entityCount == 5 && (e.getX() == randX || e.getY() == randY || e.getX() == randX-1 || e.getY() == randY+1))
+						continue;
+					if (e.getX() == randX || e.getY() == randY)
+						continue;
+				}
+				//1 for Charger, anything else is Basic.
+				if (entityCount == 5){
+					Core.getEntities().add(new BasicEnemy(randX, randY));
+					Core.getEntities().add(new BasicEnemy(randX, randY));
+					break;
+				} else if (entityCount == 7) {
+					Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 25));
+					break;
+				} else {
+					if ((i + 1) % 3 == 0)
+						Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 25));
+					else if ((i + 1) % 4 == 0)
+						Core.getEntities().add(new GuardEnemy(randX, randY, 750));
+					else
+						Core.getEntities().add(new BasicEnemy(randX, randY));
+					break;
+				}
+			}
+		}
+		
+		//Sets the goal tile.
+		addTile(new GoalTile(getXSize() - 1, 0));
 	}
-  
 	
 	/**
 	 * Returns the raw tile array.
@@ -103,7 +122,7 @@ public class GameMap {
 	 * Gets the tile at a given position.
 	 */
 	public Tile getTile(int x, int y){
-		if(x < 0 || y < 0 || y >= tiles.length || x >= tiles[y].length)
+		if(x < 0 || y < 0 || y >= getYSize() || x >= getXSize())
 			return null;
 		return tiles[y][x];
 	}
@@ -112,8 +131,12 @@ public class GameMap {
 	 * Sets the tile at a given position.
 	 */
 	public void setTile(int x, int y, Tile t){
-		if(x < 0 || y < 0 || y >= tiles.length || x >= tiles[y].length)
+		if(x < 0 || y < 0 || y >= getYSize() || x >= getXSize())
 			return;
 		tiles[y][x] = t;
+	}
+	
+	public void addTile(Tile t) {
+		setTile(t.getX(), t.getY(), t);
 	}
 }
