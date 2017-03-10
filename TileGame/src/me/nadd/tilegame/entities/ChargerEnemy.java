@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package me.nadd.tilegame.entities;
 
 import me.nadd.tilegame.ai.ChargerAI;
@@ -10,12 +5,22 @@ import org.lwjgl.util.Color;
 import org.lwjgl.util.ReadableColor;
 
 /**
- *
+ * A charger Enemy that moves randomly then charges quickly at the player
+ * 
  * @author Nathan
  */
-public class ChargerEnemy extends BasicEnemy {
+public class ChargerEnemy extends Entity {
     
-    public ChargerEnemy(int x, int y, int randTime, int sprintTime, int waitTime){
+    /**
+     * Basic Constructor for Charger Enemy
+     * @param x sets x position 
+     * @param y sets y position
+     * @param randTime time spent moving randomly
+     * @param sprintTime time spent charging at player
+     * @param waitTime time spent waiting between actions
+     */
+    public ChargerEnemy(int x, int y, int randTime, int sprintTime, 
+            int waitTime){
         super(x, y);
         this.setAI(new ChargerAI(null, randTime, sprintTime, waitTime));
     }
