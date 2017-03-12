@@ -2,6 +2,7 @@ package me.nadd.tilegame.ai;
 
 import me.nadd.tilegame.Core;
 import me.nadd.tilegame.Utils;
+import static me.nadd.tilegame.Utils.randChoice;
 import me.nadd.tilegame.entities.Entity;
 
 /**
@@ -43,8 +44,8 @@ public class BasicAI extends MonsterAI {
     }
     
     protected void randMove(){
-        int moveBy = Utils.randInt(0, 1) == 0 ? 1 : -1;
-        if (Utils.randInt(0, 1) == 0)
+        int moveBy = randChoice() == 0 ? 1 : -1;
+        if (randChoice() == 0)
             getEntity().moveX(moveBy);
         else
             getEntity().moveY(moveBy);

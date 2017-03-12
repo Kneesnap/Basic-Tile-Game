@@ -8,6 +8,9 @@ package me.nadd.tilegame;
 public class Utils {
 	
 	public static int randInt(int min, int max) {
-		return (int) ((Math.random() * (double)max) + min);
+		return (int) ((Math.random() * max) + min);
 	}
+        public static int randChoice(){
+            return (Math.random() < 0.5) ? 1 : 0;
+        }
 }
