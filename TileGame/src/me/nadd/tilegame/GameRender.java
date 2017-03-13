@@ -21,6 +21,11 @@ public class GameRender {
 	private static long mainWindowId;
 	private static GUI currentScreen;
 	
+	private static int fps;
+	
+	private static int tempFps;
+	private static long resetFpsTime;
+	
 	public static final int TICK_INTERVAL = 50;
 	private static long lastTickTime;
 	/**
@@ -60,6 +65,7 @@ public class GameRender {
             //Check for window events, mouse clicks, key presses.
             glfwPollEvents();
             
+            tickFPS();
             //Runs the game tick.
             long currentTime = System.currentTimeMillis();
             if(currentTime > lastTickTime - TICK_INTERVAL){
@@ -67,6 +73,17 @@ public class GameRender {
             	Core.doGameTick();
             }
         }
+	}
+	
+	private static void tickFPS() {
+		tempFps++;
+		if(resetFpsTime < System.currentTimeMillis()) {
+			fps = tempFps;
+			tempFps = 0;
+			resetFpsTime = System.currentTimeMillis() + 1000;
+			System.out.println("FPS = " + fps);
+		}
+		
 	}
 	
 	/**
