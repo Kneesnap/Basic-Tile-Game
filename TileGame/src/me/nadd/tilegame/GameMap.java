@@ -82,13 +82,13 @@ public class GameMap {
 					Core.getEntities().add(new BasicEnemy(randX, randY));
 					break;
 				} else if (entityCount == 7) {
-					Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 25));
+					Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 10));
 					break;
 				} else {
 					if ((i + 1) % 3 == 0)
-						Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 25));
+						Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 10));
 					else if ((i + 1) % 4 == 0)
-						Core.getEntities().add(new GuardEnemy(randX, randY, 750));
+						Core.getEntities().add(new GuardEnemy(randX, randY, 50));
 					else
 						Core.getEntities().add(new BasicEnemy(randX, randY));
 					break;

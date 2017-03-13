@@ -18,5 +18,4 @@ public class GuardEnemy extends BasicEnemy {
     public ReadableColor getColor() {
         return Color.PURPLE;
     }
-    
 }

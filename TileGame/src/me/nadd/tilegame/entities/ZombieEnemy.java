@@ -10,7 +10,7 @@ import org.lwjgl.util.ReadableColor;
 public class ZombieEnemy extends Entity {
     public ZombieEnemy(int x, int y) {
 		super(x, y);
-		this.setAI(new BasicAI(11, false, 600));
+		this.setAI(new BasicAI(11, false, 6));
 	}
             
 	public ReadableColor getColor() {

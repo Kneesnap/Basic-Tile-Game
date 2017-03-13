@@ -22,11 +22,13 @@ public class GameRender {
 	private static GUI currentScreen;
 	
 	private static int fps;
+	private static int tps;
 	
 	private static int tempFps;
-	private static long resetFpsTime;
+	private static int tempTps;
+	private static long resetTime;
 	
-	public static final int TICK_INTERVAL = 50;
+	public static final int TICKS_PER_SECOND = 20;
 	private static long lastTickTime;
 	/**
 	 * Creates the main game window.
@@ -39,6 +41,7 @@ public class GameRender {
 		GLFW.glfwSetKeyCallback(mainWindowId, new KeyboardListener());
 		GLFW.glfwMakeContextCurrent(mainWindowId);
 		GL.createCapabilities();
+		glfwSwapInterval(0); //Disable vSync
 		startRendering();
 	}
 	
@@ -68,20 +71,24 @@ public class GameRender {
             tickFPS();
             //Runs the game tick.
             long currentTime = System.currentTimeMillis();
-            if(currentTime > lastTickTime - TICK_INTERVAL){
+            if(currentTime > lastTickTime + (1000 / TICKS_PER_SECOND)){
             	lastTickTime = currentTime;
             	Core.doGameTick();
+            	tempTps++;
             }
         }
 	}
 	
 	private static void tickFPS() {
 		tempFps++;
-		if(resetFpsTime < System.currentTimeMillis()) {
+		if(resetTime < System.currentTimeMillis()) {
 			fps = tempFps;
+			tps = tempTps;
 			tempFps = 0;
-			resetFpsTime = System.currentTimeMillis() + 1000;
+			tempTps = 0;
+			resetTime = System.currentTimeMillis() + 1000;
 			System.out.println("FPS = " + fps);
+			System.out.println("TPS = " + tps);
 		}
 		
 	}

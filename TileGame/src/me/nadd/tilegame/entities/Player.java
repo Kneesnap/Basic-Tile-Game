@@ -33,7 +33,7 @@ public class Player extends Entity {
 	}
 	
 	private void keyboardTick() {
-		if(!Core.haveTicksPassed(5))
+		if(!Core.haveTicksPassed(2))
 			return;
 		//  MOVE PLAYER  //
 		if(KeyboardListener.isKeyDown(controls.getKeyUp()))

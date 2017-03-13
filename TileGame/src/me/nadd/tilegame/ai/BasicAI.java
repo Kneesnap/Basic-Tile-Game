@@ -13,7 +13,7 @@ public class BasicAI extends MonsterAI {
     private boolean randMovement;
     
     public BasicAI(){
-        this(4, false, 75);
+        this(4, false, 5);
     }
     
     public BasicAI(int agressionLevel, boolean randMovement, int tickDelay){
