@@ -2,6 +2,7 @@ package me.nadd.tilegame.entities;
 
 import me.nadd.tilegame.Core;
 import me.nadd.tilegame.KeyboardListener;
+import me.nadd.tilegame.Sound;
 import me.nadd.tilegame.controls.DefaultControls;
 import me.nadd.tilegame.controls.PlayerControls;
 
@@ -51,6 +52,6 @@ public class Player extends Entity {
 	
 	public void kill() {
 		super.kill();
-		//Play DeathSound.wav
+		Sound.DEATH.play();
 	}
 }

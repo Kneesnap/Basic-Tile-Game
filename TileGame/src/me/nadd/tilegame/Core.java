@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.sun.javafx.application.PlatformImpl;
+
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.Player;
 import me.nadd.tilegame.gui.GUIGame;
@@ -29,6 +31,8 @@ public class Core {
   
 	public static void initGame(){
 		System.out.println("TileGame - Starting...");
+		//Init JavaFX (Media Player)
+		PlatformImpl.startup(() -> {});
 		GameRender.createWindow();
 	}
   
