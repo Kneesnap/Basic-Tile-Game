@@ -37,20 +37,7 @@ public class GameMap {
 		return getTiles().length;
 	}
   
-	/**
-	 * Randomly generates the map.
-	 * 
-	 * TODO: Clean this up, create a modularized level generator that accepts settings.
-	 */
-	public void generateMap(){
-		int entityCount = Core.getLevel();
-		//TODO: Populate with holes, enemies, checkpoint, etc.
-		//Populates Tiles
-		for(int y = 0; y < tiles.length; y++)
-			for(int x = 0; x < tiles[y].length; x++)
-				addTile(new Tile(x, y));
-		
-		//Populates Obstacles
+        public void generateObstacles(){
 		for(int y = 0; y < getYSize(); y++){
 			for(int x = 0; x < getXSize(); x++){
 				if (((x == (int) (getXSize() / 2) || x == (int) ((getXSize() / 2) - 1))
@@ -65,9 +52,9 @@ public class GameMap {
 				}
 			}
 		}
-		
-		//Populates entities
-		for (int i = 0 ; i < entityCount ; i++) {
+        }
+        public void generateEntities(int entityCount){
+            for (int i = 0 ; i < entityCount ; i++) {
 			while (true){
 				int randX = (int) ((Math.random() * (getXSize() / 2)) + ((getXSize() / 2) - 1));
 				int randY = (int) (Math.random() * (getYSize() / 2));
@@ -96,6 +83,26 @@ public class GameMap {
 				}
 			}
 		}
+        }
+            
+	/**
+	 * Randomly generates the map.
+	 * 
+	 * TODO: Clean this up, create a modularized level generator that accepts settings.
+	 */
+	public void generateMap(){
+		int entityCount = Core.getLevel();
+		//TODO: Populate with holes, enemies, checkpoint, etc.
+		//Populates Tiles
+		for(int y = 0; y < tiles.length; y++)
+			for(int x = 0; x < tiles[y].length; x++)
+				addTile(new Tile(x, y));
+		
+		//Populates Obstacles
+		generateObstacles();
+		
+		//Populates entities
+		generateEntities(Core.getLevel());
 		
 		//Sets the goal tile.
 		addTile(new GoalTile(getXSize() - 1, 0));
