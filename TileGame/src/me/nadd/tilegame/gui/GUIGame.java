@@ -25,7 +25,7 @@ public class GUIGame extends GUI {
 		GL11.glColor3f(d.getColor().getRed() / 255F, d.getColor().getGreen() / 255F, d.getColor().getBlue() / 255F);
 		int x = d.getTile().getX() * getScaledTileSize();
 		int y = d.getTile().getY() * getScaledTileSize();
-		this.drawRect(x, y, x + getScaledTileSize(), y + getScaledTileSize());
+		this.drawRect(x, y, x + getScaledTileSize() - 1, y + getScaledTileSize() - 1);
 	}
 	
 	/**

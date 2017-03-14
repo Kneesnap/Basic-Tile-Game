@@ -72,6 +72,6 @@ public class Tile implements Drawable {
 
 	@Override
 	public ReadableColor getColor() {
-		return Color.GREY;
+		return Color.BLACK;
 	}
 }
