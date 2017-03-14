@@ -34,7 +34,7 @@ public class Player extends Entity {
 	}
 	
 	private void keyboardTick() {
-		if(!Core.haveTicksPassed(2))
+		if(!Core.haveTicksPassed((KeyboardListener.isKeyDown(controls.getKeyPressShift())) ? 1 : 2))
 			return;
 		//  MOVE PLAYER  //
 		if(KeyboardListener.isKeyDown(controls.getKeyUp()))

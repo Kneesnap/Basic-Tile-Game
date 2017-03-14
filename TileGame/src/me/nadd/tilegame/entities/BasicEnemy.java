@@ -8,7 +8,7 @@ public class BasicEnemy extends Entity {
         
 	public BasicEnemy(int x, int y) {
 		super(x, y);
-		this.setAI(new BasicAI(0, true, 3));
+		this.setAI(new BasicAI(5, true, 3));
 	}
             
 	public ReadableColor getColor() {

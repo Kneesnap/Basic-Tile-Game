@@ -12,16 +12,18 @@ public class PlayerControls {
 	private int keyMoveDown;
 	private int keyMoveLeft;
 	private int keyMoveRight;
+        private int keyPressShift;
 	
 	public PlayerControls(){
 		
 	}
 	
-	public PlayerControls(int up, int down, int left, int right){
+	public PlayerControls(int up, int down, int left, int right, int shift){
 		this.setKeyUp(up);
 		this.setKeyDown(down);
 		this.setKeyLeft(left);
 		this.setKeyRight(right);
+                this.setKeyPressShift(shift);
 	}
 	
 	/**
@@ -80,4 +82,14 @@ public class PlayerControls {
 	public void setKeyRight(int key) {
 		this.keyMoveRight = key;
 	}
+        
+        public int getKeyPressShift(){
+            return this.keyPressShift;
+        }
+        /**
+         * Sets the "Sprint" key.
+         */
+        public void setKeyPressShift(int shift){
+            this.keyPressShift = shift;
+        }
 }
