@@ -34,6 +34,9 @@ public class KeyboardListener extends GLFWKeyCallback {
 	
 	@Override
 	public void invoke(long window, int key, int scancode, int action, int mods){
+                //Some genius decided to make physical volume keys negative.
+                if(key < 0)
+                    return;
 		boolean pressed = action != GLFW.GLFW_RELEASE;
 		keys[key] = pressed;
 		KeyEvent event = new KeyEvent(key, action, window);

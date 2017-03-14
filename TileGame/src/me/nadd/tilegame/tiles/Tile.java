@@ -42,6 +42,10 @@ public class Tile implements Drawable {
 	public boolean isWalkable(Entity ent){
 		return !this.isOccupied();
 	}
+        
+        public boolean isObstacle(){
+                return (this instanceof ObstacleTile);
+        }
   
 	/**
 	 * Runs when an entity steps on this tile.

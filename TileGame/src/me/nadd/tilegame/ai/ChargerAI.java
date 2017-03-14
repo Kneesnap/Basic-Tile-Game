@@ -25,7 +25,7 @@ public class ChargerAI extends BasicAI {
     		this.setTickDelay(waitTime * 4);
     		super.randMove();
     	} else if (current <= sprintTime) {
-    		this.setTickDelay(0);
+    		this.setTickDelay(1);
     		super.smartMove();
     	} else {
     		current = -1;

@@ -27,15 +27,27 @@ public class GuardAI extends MonsterAI {
         //System.out.println(zAmountDown + " " + xAmountLeft + " " + zAmountUp + " " + xAmountRight);
         if (yAmountDown > 0) {
         	getEntity().moveY(1);
+                if (Core.getMap().getTile(getEntity().getX(), getEntity().getY()-1).isObstacle())
+                    System.out.println("Wall below at " + getEntity().getX() + "x and" + (getEntity().getY()-1) + "y");
+                    yAmountDown = 0;
         	yAmountDown--;
         }else if (xAmountRight > 0) {
         	xAmountRight = Core.getMap().getXSize() - 2 - getEntity().getX();
+                if (Core.getMap().getTile(getEntity().getX()+1, getEntity().getY()).isObstacle())
+                    System.out.println("Wall right at" + (getEntity().getX()+1) + "x and" + (getEntity().getY()) + "y");
+                    xAmountRight = 0;
         	getEntity().moveX(1);
         }else if (xAmountLeft > 0) {
         	getEntity().moveX(-1);
+                if (Core.getMap().getTile(getEntity().getX()-1, getEntity().getY()).isObstacle())
+                    System.out.println("Wall left at " + (getEntity().getX()-1) + "x and" + (getEntity().getY()+1) + "y");
+                    xAmountLeft = 0;
         	xAmountLeft--;
         }else if (yAmountUp > 0) {
         	yAmountUp = getEntity().getY() - 1;
+                if (Core.getMap().getTile(getEntity().getX(), getEntity().getY()+1).isObstacle())
+                    System.out.println("Wall above at" + getEntity().getX() + "x and" + (getEntity().getY()+1) + "y");
+                    yAmountUp = 0;
         	getEntity().moveY(-1);
         }
         

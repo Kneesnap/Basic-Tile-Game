@@ -7,6 +7,7 @@ import me.nadd.tilegame.entities.BasicEnemy;
 import me.nadd.tilegame.entities.ChargerEnemy;
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.GuardEnemy;
+import me.nadd.tilegame.entities.ZombieEnemy;
 import me.nadd.tilegame.tiles.GoalTile;
 import me.nadd.tilegame.tiles.ObstacleTile;
 import me.nadd.tilegame.tiles.Tile;
@@ -82,13 +83,13 @@ public class GameMap {
 					Core.getEntities().add(new BasicEnemy(randX, randY));
 					break;
 				} else if (entityCount == 7) {
-					Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 10));
+					Core.getEntities().add(new ChargerEnemy(randX, randY, 15, 5, 2));
 					break;
 				} else {
 					if ((i + 1) % 3 == 0)
-						Core.getEntities().add(new ChargerEnemy(randX, randY, 25, 5, 10));
+						Core.getEntities().add(new ChargerEnemy(randX, randY, 15, 5, 2));
 					else if ((i + 1) % 4 == 0)
-						Core.getEntities().add(new GuardEnemy(randX, randY, 50));
+						Core.getEntities().add(new ZombieEnemy(randX, randY));
 					else
 						Core.getEntities().add(new BasicEnemy(randX, randY));
 					break;
