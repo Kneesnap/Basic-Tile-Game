@@ -1,5 +1,6 @@
 package me.nadd.tilegame;
 
+import com.sun.javafx.application.PlatformImpl;
 import me.nadd.tilegame.gui.GUI;
 import me.nadd.tilegame.gui.GUIMainMenu;
 
@@ -76,7 +77,9 @@ public class GameRender {
             	Core.doGameTick();
             	tempTps++;
             }
+            
         }
+        PlatformImpl.exit();
 	}
 	
 	private static void tickFPS() {

@@ -42,6 +42,7 @@ public class Core {
 	public static void closeGame(){
 		System.out.println("TileGame - Stopping...");
 		stopGame();
+                PlatformImpl.exit();
 		System.exit(0);
 	}
   

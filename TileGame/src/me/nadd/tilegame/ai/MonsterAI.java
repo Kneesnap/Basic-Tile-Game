@@ -44,9 +44,9 @@ public abstract class MonsterAI extends AI{
 	}
 	
 	protected void defaultAttack() {
-		if (Core.getLivePlayers().isEmpty())
-        	attackNearestPlayer();
-        else
-        	attackNearest();
+		if (!Core.getLivePlayers().isEmpty())
+                    attackNearestPlayer();
+                else
+                    attackNearest();
 	}
 }
