@@ -19,8 +19,8 @@ import me.nadd.tilegame.gui.GUIMainMenu;
  * @author Kneesnap
  */
 public class Core {
-  
-	private static int MAP_SIZE_X = 16;
+        
+    	private static int MAP_SIZE_X = 16;
 	private static int MAP_SIZE_Y = 16;
   
 	private static boolean isGoing;
@@ -80,6 +80,9 @@ public class Core {
 		GameRender.openGUI(new GUIGame());
 	}
 	
+        /**
+         * Ticks the game. Normally 20 TPS.
+         */
 	public static void doGameTick(){
 		tickCount = tickCount % 500 + 1;
 		//  ENTITY TICK  //
