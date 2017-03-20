@@ -36,17 +36,36 @@ public class GameMap {
 	public int getYSize() {
 		return getTiles().length;
 	}
-  
+        
+        /**
+         * Generates obstacles in a plus shape given by dividing the x and y
+         * axes.
+         */
         public void generateObstacles(){
 		for(int y = 0; y < getYSize(); y++){
 			for(int x = 0; x < getXSize(); x++){
 				if (((x == (int) (getXSize() / 2) || x == (int) ((getXSize() / 2) - 1))
-						||(y == (int) (getYSize() / 2) || y == (int) ((getYSize() / 2) - 1)))
-						&& (Math.random() < 0.25)
-						&& x > 0
+                                //Generates in the middle of the map horizontally
+                                        
+                                ||(y == (int) (getYSize() / 2) || y == (int) ((getYSize() / 2) - 1)))
+                                //Generates in the middle of the map vertically.
+                                        
+				&& (Math.random() < 0.25)
+                                //Generates the random chance of placing a tile.
+                                        
+				&& x > 0
+                                //Stops generation at the left wall.
+                                        
                 		&& x < getXSize()
-                		&& y > 0
+                                //Stops generation at the right wall.
+                                        
+                		&& y > 0 
+                                //Stops generation at the top wall.
+                                        
                 		&& y < getYSize()){
+                                //Stops generation at the bottom wall.
+                                        
+                                        //Adds a new wall. (Obstacle).
 					addTile(new ObstacleTile(x, y));
 					continue;
 				}
