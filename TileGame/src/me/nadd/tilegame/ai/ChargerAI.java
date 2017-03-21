@@ -14,11 +14,11 @@ public class ChargerAI extends BasicAI {
     private int current;
     
     //The amount of ticks it takes to update while charging.
-    private final int CHARGE_TIME = 8;
+    private final int CHARGE_DELAY = 8;
     
     public ChargerAI(int chargeTime, int sprintTime) {
-        this.chargeTime = chargeTime;
-        this.sprintTime = sprintTime + randTime;
+        this.chargeTime = (chargeTime / CHARGE_DELAY);
+        this.sprintTime = sprintTime + this.chargeTime;
     }
     
     @Override
@@ -27,9 +27,9 @@ public class ChargerAI extends BasicAI {
         //  DEFAULT TICK DELAY  //
         this.setTickDelay(1);
         
-    	if (current <= (chargeTime / CHARGE_TIME)) {
+    	if (current <= chargeTime) {
     		//  WHILE CHARGING  //
-            this.setTickDelay(CHARGE_TIME);
+            this.setTickDelay(CHARGE_DELAY);
     		super.randMove();
     	} else if (current <= sprintTime) {
             //  WHILE SPRINTING  //
