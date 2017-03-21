@@ -128,7 +128,7 @@ public class GameRender {
 	 * Closes the current GUI.
 	 */
 	public static void closeGUI() {
-		openGUI(new GUiMainMenu());
+		openGUI(new GUIMainMenu());
 	}
 	
 	/**
