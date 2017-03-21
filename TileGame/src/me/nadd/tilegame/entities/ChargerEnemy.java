@@ -19,9 +19,9 @@ public class ChargerEnemy extends Entity {
      * @param sprintTime time spent charging at player
      * @param waitTime time spent waiting between actions
      */
-    public ChargerEnemy(int x, int y, int randTime, int sprintTime, int waitTime) {
+    public ChargerEnemy(int x, int y) {
         super(x, y);
-        this.setAI(new ChargerAI(randTime, sprintTime, waitTime));
+        this.setAI(new ChargerAI(15, 5, 2));
     }
     
     public ReadableColor getColor() {
