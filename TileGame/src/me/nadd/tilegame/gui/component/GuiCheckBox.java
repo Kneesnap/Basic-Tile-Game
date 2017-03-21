@@ -10,7 +10,7 @@ public class GuiCheckBox extends GUIButton {
 	private boolean state;
 	
 	public GuiCheckBox(int xPos, int yPos) {
-		super(xPos, yPos, "", 20, this::toggle);
+		super(xPos, yPos, "", BOX_HEIGHT, this::toggle);
 	}
 
 	@Override
