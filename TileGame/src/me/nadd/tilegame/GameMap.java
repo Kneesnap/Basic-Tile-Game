@@ -125,19 +125,19 @@ public class GameMap {
 	 */
 	public void generateMap(){
 		int entityCount = Core.getLevel();
-		//TODO: Populate with holes, enemies, checkpoint, etc.
-		//Populates Tiles
+		
+		//  SET ALL TILES TO DEFAULT  //
 		for(int y = 0; y < tiles.length; y++)
 			for(int x = 0; x < tiles[y].length; x++)
 				addTile(new Tile(x, y));
 		
-		//Populates Obstacles
+		//  ADD OBSTACLE TILES  //
 		generateObstacles();
 		
-		//Populates entities
-		generateEntities(Core.getLevel());
+		//  ADD ENTITIES  //
+		generateEntities(entityCount);
 		
-		//Sets the goal tile.
+		//  CREATE GOAL  //
 		addTile(new GoalTile(getXSize() - 1, 0));
 	}
 	
