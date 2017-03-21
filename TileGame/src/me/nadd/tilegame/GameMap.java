@@ -6,7 +6,6 @@ import java.util.List;
 import me.nadd.tilegame.entities.BasicEnemy;
 import me.nadd.tilegame.entities.ChargerEnemy;
 import me.nadd.tilegame.entities.Entity;
-import me.nadd.tilegame.entities.GuardEnemy;
 import me.nadd.tilegame.entities.ZombieEnemy;
 import me.nadd.tilegame.tiles.GoalTile;
 import me.nadd.tilegame.tiles.ObstacleTile;
