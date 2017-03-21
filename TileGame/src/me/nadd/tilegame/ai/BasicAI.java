@@ -9,15 +9,15 @@ import me.nadd.tilegame.entities.Entity;
  * A simple basic test AI.
  */
 public class BasicAI extends MonsterAI {
-    private int agressionLevel;
+    private int aggressionLevel;
     private boolean randMovement;
     
     public BasicAI(){
         this(4, false, 5);
     }
     
-    public BasicAI(int agressionLevel, boolean randMovement, int tickDelay){
-        this.agressionLevel = agressionLevel;
+    public BasicAI(int aggressionLevel, boolean randMovement, int tickDelay){
+        this.aggressionLevel = aggressionLevel;
         this.randMovement = randMovement;
         this.setTickDelay(tickDelay);
     }
@@ -38,11 +38,15 @@ public class BasicAI extends MonsterAI {
      * is greater, vertically if otherwise.
      */
     protected void smartMove() {
+        //Gets the difference between the controlled entity's target's position
+        //and the controlled entity's position.
         int xDif = (getTarget().getX() - getEntity().getX());
         int yDif = (getTarget().getY() - getEntity().getY());
         
+        //Checks which axis' difference is greater and moves toward the 
+        //controlled entity's target on that axis.
         if (Math.abs(xDif) > Math.abs(yDif) && xDif != 0)
-        	getEntity().moveX(xDif / Math.abs(xDif));
+            getEntity().moveX(xDif / Math.abs(xDif));
         else if (yDif != 0)
             getEntity().moveY(yDif / Math.abs(yDif));
     }
@@ -65,7 +69,7 @@ public class BasicAI extends MonsterAI {
      * @return 
      */
     private boolean isSmartMove() {
-        return (Utils.randInt(1, 10) < agressionLevel);
+        return (Utils.randInt(1, 10) < aggressionLevel);
     }
     
     /**
@@ -78,11 +82,11 @@ public class BasicAI extends MonsterAI {
     }
     
     /**
-     * Sets the agression level.
-     * @param agressionLevel 
+     * Sets the aggression level.
+     * @param aggressionLevel 
      */
-    public void setAgression(int agressionLevel){
-        this.agressionLevel = agressionLevel;
+    public void setAgression(int aggressionLevel){
+        this.aggressionLevel = aggressionLevel;
     }
     
     /**
@@ -94,11 +98,11 @@ public class BasicAI extends MonsterAI {
     }
     
     /**
-     * Returns the agression level.
+     * Returns the aggression level.
      * @return 
      */
     public int getAgression(){
-        return agressionLevel;
+        return aggressionLevel;
     }
     
     /**

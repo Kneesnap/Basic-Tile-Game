@@ -50,8 +50,11 @@ public abstract class AI {
 	 * Attack the nearest player if possible.
 	 */
 	protected void attackNearestPlayer() {
+                //Checks if the entity can attack any player.
 		for(Player p : Core.getPlayers()){
-			if(getEntity().canAttack(p)){
+			if(getEntity().canAttack(p)){                            
+                                //If there is an attackable player,
+                                //the first one in the player list is attacked.
 				getEntity().attackEntity(p);
 				break;
 			}
@@ -62,8 +65,11 @@ public abstract class AI {
 	 * Attacks the nearest entity if possible.
 	 */
 	protected void attackNearest() {
+                //Checks if the entity can attack any entity.
 		for(Entity e : Core.getEntities()){
 			if(getEntity().canAttack(e)){
+                                //If there is an attackable entity,
+                                //the first one in the entity list is attacked.
 				getEntity().attackEntity(e);
 				break;
 			}
