@@ -8,7 +8,7 @@ import me.nadd.tilegame.gui.GUI;
  * @author Kneesnap
  */
 public class GuiButton extends GuiComponent {
-	private final static int BOX_HEIGHT = 20;
+	protected final static int BOX_HEIGHT = 20;
 	
 	private int width;
 	private String text;
