@@ -96,7 +96,7 @@ public class GameMap {
                                 
                                 //Level 7 spawns only chargers.
 				} else if (level == 7) {
-					Core.getEntities().add(new ChargerEnemy(randX, randY, 15, 5, 2));
+					Core.getEntities().add(new ChargerEnemy(randX, randY));
 					break;
                                 
                                 /*
@@ -107,7 +107,7 @@ public class GameMap {
                                         */
 				} else {
 					if ((i + 1) % 3 == 0)
-						Core.getEntities().add(new ChargerEnemy(randX, randY, 15, 5, 2));
+						Core.getEntities().add(new ChargerEnemy(randX, randY));
 					else if ((i + 1) % 4 == 0)
 						Core.getEntities().add(new ZombieEnemy(randX, randY));
 					else
