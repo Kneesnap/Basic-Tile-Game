@@ -6,32 +6,42 @@ import me.nadd.tilegame.Utils;
  * A basic AI that charges up and moves in bursts.
  */
 public class ChargerAI extends BasicAI {
-    private int randTime;
+    //The amount of ticks it takes to fully charge.
+    private int chargeTime;
+    //The amount of ticks a "burst" or sprint lasts for.
     private int sprintTime;
-    private int waitTime;
-    private int current = Utils.randInt(0, 10);
+    //The counter that decides whether the entity is sprinting or charging.
+    private int current;
     
-    public ChargerAI(int randTime, int sprintTime, int waitTime){
-        this.randTime = randTime;
+    //The amount of ticks it takes to update while charging.
+    private final int CHARGE_TIME = 8;
+    
+    public ChargerAI(int chargeTime, int sprintTime) {
+        this.chargeTime = chargeTime;
         this.sprintTime = sprintTime + randTime;
-        this.waitTime = waitTime;
     }
     
     @Override
     public void update() {
     	
-    	this.setTickDelay(waitTime);
-    	if (current <= randTime){
-    		this.setTickDelay(waitTime * 4);
+        //  DEFAULT TICK DELAY  //
+        this.setTickDelay(1);
+        
+    	if (current <= (chargeTime / CHARGE_TIME)) {
+    		//  WHILE CHARGING  //
+            this.setTickDelay(CHARGE_TIME);
     		super.randMove();
     	} else if (current <= sprintTime) {
-    		this.setTickDelay(1);
+            //  WHILE SPRINTING  //
     		super.smartMove();
     	} else {
+            //This resets the counter. It's set to -1 because it gets incremented after this.
     		current = -1;
     	}
+        
     	current++;
     	
+        //  ATTACK  //
     	this.defaultAttack();
     }
 }
