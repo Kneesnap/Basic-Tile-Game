@@ -33,6 +33,7 @@ public class Core {
 		System.out.println("TileGame - Starting...");
 		//Init JavaFX (Media Player)
 		PlatformImpl.startup(() -> {});
+		//  CREATE WINDOW  //
 		GameRender.createWindow();
 	}
   
@@ -41,8 +42,11 @@ public class Core {
 	 */
 	public static void closeGame(){
 		System.out.println("TileGame - Stopping...");
+		//Stops the game properly.
 		stopGame();
+		//Exit JavaFX. Otherwise the window hangs.
                 PlatformImpl.exit();
+		//Closes this process.
 		System.exit(0);
 	}
   
@@ -50,7 +54,7 @@ public class Core {
 	 * Starts the game. Fails silently if a game is already taking place.
 	 */
 	public static void startGame(){
-		if(!isGoing){
+		if (!isGoing) {
 			System.out.println("STARTING GAME");
 			isGoing = true;
 			level = 0;
@@ -62,7 +66,7 @@ public class Core {
 	 * Stops the game. Fails silently if there is no current game.
 	 */
 	public static void stopGame() {
-		if(isGoing){
+		if (isGoing) {
 			GameRender.openGUI(new GUIMainMenu());
 			isGoing = false;
 		}
@@ -74,9 +78,14 @@ public class Core {
 	public static void nextLevel() {
 		level++;
 		System.out.println("STARTING LEVEL " + level);
+		//  RESET ENTITIES  //
 		getEntities().clear();
 		getEntities().add(new Player(0, getMap().getYSize() - 1));
+		
+		//  GENERATE MAP  //
 		gameMap.generateMap();
+		
+		//  START GAME  //
 		GameRender.openGUI(new GUIGame());
 	}
 	
@@ -90,6 +99,7 @@ public class Core {
 		getEntities().forEach(ent::add);
 		ent.forEach(Entity::onTick);
 		
+		//If there's only one entity left, stop the game.
 		if(getEntities().size() <= 1)
 			stopGame();
 	}
