@@ -55,8 +55,8 @@ public class BasicAI extends MonsterAI {
      * Moves randomly.
      */
     protected void randMove(){
-        int moveBy = randChoice() == 0 ? 1 : -1;
-        if (randChoice() == 0)
+        int moveBy = randChoice() ? 1 : -1;
+        if (randChoice())
             getEntity().moveX(moveBy);
         else
             getEntity().moveY(moveBy);
