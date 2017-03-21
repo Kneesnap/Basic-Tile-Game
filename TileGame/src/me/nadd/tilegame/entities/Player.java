@@ -52,6 +52,6 @@ public class Player extends Entity {
 	
 	public void kill() {
 		super.kill();
-		Sound.DEATH.play();
+                Core.playSound(Sound.DEATH);
 	}
 }

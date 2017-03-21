@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.sun.javafx.application.PlatformImpl;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.Player;
@@ -20,14 +22,17 @@ import me.nadd.tilegame.gui.GUIMainMenu;
  */
 public class Core {
         
-    	private static int MAP_SIZE_X = 16;
-	private static int MAP_SIZE_Y = 16;
+    	private static final int MAP_SIZE_X = 16;
+	private static final int MAP_SIZE_Y = 16;
   
 	private static boolean isGoing;
-	public static int tickCount;
+	private static int tickCount;
 	private static List<Entity> entities = new ArrayList<>();
 	private static GameMap gameMap = new GameMap(MAP_SIZE_X, MAP_SIZE_Y);
 	private static int level;
+        
+        private static MediaPlayer currentPlayer;
+        private static Sound currentMusic;
   
 	public static void initGame(){
 		System.out.println("TileGame - Starting...");
@@ -153,8 +158,60 @@ public class Core {
   
 	/**
 	 * Return the game map.
+         * @return GameMap
 	 */
 	public static GameMap getMap(){
 		return gameMap;
 	}
+        
+        /**
+         * Play a sound effect.
+         * @param sound
+         */
+        public static void playSound(Sound sound) {
+            //Silently fail if the file isn't found.
+            if (sound == null || sound.getAudio() == null)
+                return;
+            
+            MediaPlayer player = new MediaPlayer(sound.getAudio());
+            player.play();
+        }
+        
+        /**
+         * Play that funky music white-boy.
+         * @param music
+         */
+        public static void playMusic(Sound music) {
+            //If the file isn't found silently fail.
+            if(music == null || music.getAudio() == null)
+                return;
+            
+            //Stop the current music
+            if (currentPlayer != null) {
+                // Don't restart the current music.
+                if (currentMusic == music)
+                    return;
+                stopMusic();
+            }
+            
+            //Play the new music.
+            currentMusic = music;
+            currentPlayer = new MediaPlayer(music.getAudio());
+            //Put music on repeat.
+            currentPlayer.setOnEndOfMedia(
+                    () -> currentPlayer.seek(Duration.ZERO));
+            currentPlayer.play();
+        }
+        
+        
+        /**
+         * Stop that music!
+         */
+        public static void stopMusic() {
+            if(currentPlayer == null)
+                return;
+            currentPlayer.stop();
+            currentPlayer.dispose();
+            currentPlayer = null;
+        }
 }

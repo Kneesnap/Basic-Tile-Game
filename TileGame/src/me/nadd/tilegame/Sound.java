@@ -3,18 +3,26 @@ package me.nadd.tilegame;
 import java.io.File;
 
 import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 public enum Sound {
 	
-	DEATH("DeathSound.wav");
+        //  EFFECTS  //
+	DEATH("DeathSound.wav"),
+        
+        //  MUSIC  //
+        DEFAULT_GAME_MUSIC("basicgamemusic.mp3");
 	
-	private Media audio;
+	private final Media audio;
 	Sound(String file) {
-		this.audio = new Media(new File("src/resources/" + file).toURI().toString());
+		File soundFile = new File("src/resources/" + file);
+                this.audio = soundFile.exists() ?
+                        new Media(soundFile.toURI().toString()) : null;
+                
+                if(this.audio == null)
+                    System.out.println("[MISSING FILE] " + soundFile.getAbsoluteFile());
 	}
 	
-	public void play() {
-		new MediaPlayer(this.audio).play();
+	public Media getAudio() {
+		return this.audio;
 	}
 }

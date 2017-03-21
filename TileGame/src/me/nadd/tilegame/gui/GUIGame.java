@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import me.nadd.tilegame.Core;
 import me.nadd.tilegame.Drawable;
+import me.nadd.tilegame.Sound;
 
 public class GUIGame extends GUI {
 
@@ -41,6 +42,6 @@ public class GUIGame extends GUI {
 
 	@Override
 	public void initGUI() {
-		
+		Core.playMusic(Sound.DEFAULT_GAME_MUSIC);
 	}
 }
