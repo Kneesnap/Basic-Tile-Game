@@ -5,12 +5,13 @@ import me.nadd.tilegame.gui.GUI;
 /**
  * A basic checkbox.
  */
-public class GuiCheckBox extends GUIButton {
+public class GuiCheckBox extends GuiButton {
 	
 	private boolean state;
 	
 	public GuiCheckBox(int xPos, int yPos) {
-		super(xPos, yPos, "", BOX_HEIGHT, this::toggle);
+		super(xPos, yPos, "", BOX_HEIGHT, null);
+                setCallback(this::toggle);
 	}
 
 	@Override

@@ -53,4 +53,8 @@ public class GuiButton extends GuiComponent {
 	public boolean isHover() {
 		return this.isMouseInRegion(getX(), getY(), getX() + getWidth(), getY() + BOX_HEIGHT);
 	}
+        
+        public void setCallback(Runnable cb) {
+            this.onClick = cb;
+        }
 }
