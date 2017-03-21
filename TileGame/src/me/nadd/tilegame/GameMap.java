@@ -71,25 +71,40 @@ public class GameMap {
 			}
 		}
         }
-        public void generateEntities(int entityCount){
-            for (int i = 0 ; i < entityCount ; i++) {
+        public void generateEntities(int level){
+            for (int i = 0 ; i < level ; i++) {
 			while (true){
+                                //Creates a random point, checks whether or not
+                                //to place an enemy there. Repeats if not.
 				int randX = (int) ((Math.random() * (getXSize() / 2)) + ((getXSize() / 2) - 1));
 				int randY = (int) (Math.random() * (getYSize() / 2));
 				for (Entity e : Core.getEntities()){
-					if (entityCount == 5 && (e.getX() == randX || e.getY() == randY || e.getX() == randX-1 || e.getY() == randY+1))
+					if (level == 5 && (e.getX() == randX || e.getY() == randY || e.getX() == randX-1 || e.getY() == randY+1))
 						continue;
 					if (e.getX() == randX || e.getY() == randY)
 						continue;
 				}
-				//1 for Charger, anything else is Basic.
-				if (entityCount == 5){
+                                
+				//Decides what type/amount of enemy to place
+                                //based on the level.
+                                
+                                //Level 5 spawns double the enemies.
+				if (level == 5){
 					Core.getEntities().add(new BasicEnemy(randX, randY));
 					Core.getEntities().add(new BasicEnemy(randX, randY));
 					break;
-				} else if (entityCount == 7) {
+                                
+                                //Level 7 spawns only chargers.
+				} else if (level == 7) {
 					Core.getEntities().add(new ChargerEnemy(randX, randY, 15, 5, 2));
 					break;
+                                
+                                /*
+                                Otherwise, the normal operation is to spawn one
+                                charger for every 3 levels, and one zombie for
+                                every 4 levels. All other entities are basic 
+                                enemies.
+                                        */
 				} else {
 					if ((i + 1) % 3 == 0)
 						Core.getEntities().add(new ChargerEnemy(randX, randY, 15, 5, 2));
@@ -162,6 +177,10 @@ public class GameMap {
 		tiles[y][x] = t;
 	}
 	
+        /**
+         * Places a tile where its x and y values specify for it to be.
+         * @param t 
+         */
 	public void addTile(Tile t) {
 		setTile(t.getX(), t.getY(), t);
 	}
