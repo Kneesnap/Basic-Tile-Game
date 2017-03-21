@@ -7,7 +7,7 @@ public class GUIMainMenu extends GUI {
 	
 	@Override
 	public void initGUI() {
-		addComponent(new GuiButton(getWidth() / 2 - 25, 30, "Play", 50, () -> Core.startGame()));
+		addComponent(new GuiButton(getWidth() / 2 - 25, 30, "Play", 50, Core::startGame));
 	}
 	
 	protected void render() {
