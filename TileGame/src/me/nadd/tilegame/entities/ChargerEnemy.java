@@ -21,7 +21,7 @@ public class ChargerEnemy extends Entity {
      */
     public ChargerEnemy(int x, int y) {
         super(x, y);
-        this.setAI(new ChargerAI(15, 5, 2));
+        this.setAI(new ChargerAI(120, 5));
     }
     
     public ReadableColor getColor() {
