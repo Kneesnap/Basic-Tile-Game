@@ -18,9 +18,12 @@ public class KeyboardListener extends GLFWKeyCallback {
 	private List<KeyListener> listeners = new ArrayList<>();
 	
 	public KeyboardListener() {
+		
+		//  BIND SPECIAL KEYS  //
 		add(new KeyListener(ActionControls.STOP_KEY, event -> Core.closeGame()));
 		add(new KeyListener(GLFW.GLFW_KEY_SPACE, event -> Core.stopGame()));
 		
+		//  SETUP MOUSE LISTENER  //
 		GLFW.glfwSetMouseButtonCallback(GameRender.getWindow(), GLFWMouseButtonCallback.create((window, button, action, mods) -> {
 		    if(GameRender.getCurrentScreen() != null && action == GLFW.GLFW_PRESS && button == 0)
 		    	for(GuiComponent gc : GameRender.getCurrentScreen().getComponents())
@@ -38,8 +41,12 @@ public class KeyboardListener extends GLFWKeyCallback {
                 if(key < 0)
                     return;
 		boolean pressed = action != GLFW.GLFW_RELEASE;
+		
+		//  RECORD IF PRESSED  //
 		keys[key] = pressed;
 		KeyEvent event = new KeyEvent(key, action, window);
+		
+		//  FIRE THE EVENT  //
 		this.listeners.stream().filter(l -> l.getKeyCode() == event.getKeyCode()).forEach((listener) -> listener.onPress(event));
 	}
 	

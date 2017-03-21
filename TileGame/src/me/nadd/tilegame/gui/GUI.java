@@ -43,15 +43,20 @@ public abstract class GUI {
 	}
 	
 	public static void updateScreenDimensions(){
+		//  GET DIMENSIONS  //
 		IntBuffer w = BufferUtils.createIntBuffer(4);
 		IntBuffer h = BufferUtils.createIntBuffer(4);
 		GLFW.glfwGetWindowSize(GameRender.getWindow(), w, h);
+		//  UPDATE LOCAL VARIABLES  //
 		width = w.get(0);
 		height = h.get(0);
 	}
 	
 	public void draw() {
+		//  DRAW THIS GUI  //
 		this.render();
+		
+		//  DRAW ALL GUI COMPONENTS  //
 		for(GuiComponent gc : this.components){
 			GL11.glPushMatrix();
 			gc.render(this);
@@ -77,10 +82,13 @@ public abstract class GUI {
 	}
 	
 	public void drawTriangle(float x, float y, float midXDif, float midYDif, float endXDif, float endYDif) {
+		//  CALCULATE WHERE TO DRAW LINES  //
 		float midX = midXDif - x;
 		float midY = midYDif - y;
 		float endX = endXDif - x;
 		float endY = endYDif - y;
+		
+		//  DRAW TRIANGLE  //
 		drawLine(x, y, midX, midY);
 		drawLine(x, y, endX, endY);
 		drawLine(midX, midY, endX, endY);
@@ -91,6 +99,7 @@ public abstract class GUI {
 	}
 	
 	public void drawRect(float x, float y, float x2, float y2) {
+		//Draw four lines that form a rectangle.
 		drawLine(x, y, x2, y);
 		drawLine(x, y2, x2, y2);
 		drawLine(x, y, x, y2);

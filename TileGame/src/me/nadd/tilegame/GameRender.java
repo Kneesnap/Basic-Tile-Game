@@ -38,11 +38,16 @@ public class GameRender {
 		System.out.println("Creating Window.");
 		//Create main window, set context.
 		GLFW.glfwInit();
+		//  CREATE WINDOW  //
 		mainWindowId = GLFW.glfwCreateWindow(800, 600, "TileGame", 0, 0);
 		GLFW.glfwSetKeyCallback(mainWindowId, new KeyboardListener());
+		
+		//  SETUP CONTEXT  //
 		GLFW.glfwMakeContextCurrent(mainWindowId);
 		GL.createCapabilities();
-		glfwSwapInterval(0); //Disable vSync
+		
+		// Disable vSYnc. Some computers have it enabled by default, and it causes lots of problems.
+		glfwSwapInterval(0);
 		startRendering();
 	}
 	
@@ -59,12 +64,12 @@ public class GameRender {
     		glOrtho(0, GUI.getWidth(), GUI.getHeight(), 0, 1, -1);
     		glMatrixMode(GL_MODELVIEW);
     		
-            //Render our game.
+            //Render game.
             GL11.glPushMatrix();
             renderGame();
             GL11.glPopMatrix();
             
-            glfwSwapBuffers(mainWindowId); // swap the color buffers
+            glfwSwapBuffers(mainWindowId); // Updates the screen.
  
             //Check for window events, mouse clicks, key presses.
             glfwPollEvents();
@@ -85,6 +90,7 @@ public class GameRender {
 	private static void tickFPS() {
 		tempFps++;
 		if(resetTime < System.currentTimeMillis()) {
+			//  RESET FPS + TPS TIMERS  //
 			fps = tempFps;
 			tps = tempTps;
 			tempFps = 0;
@@ -109,10 +115,12 @@ public class GameRender {
 	/**
 	 * Opens a new GUI.
 	 */
-	public static void openGUI(GUI gui){
+	public static void openGUI(GUI gui) {
+		// Close the current gui, if any.
 		if(currentScreen != null)
 			currentScreen.onClose();
 		currentScreen = gui;
+		// Setup the new GUI.
 		currentScreen.initGUI();
 	}
 	
@@ -120,9 +128,7 @@ public class GameRender {
 	 * Closes the current GUI.
 	 */
 	public static void closeGUI() {
-		if(currentScreen != null)
-			currentScreen.onClose();
-		currentScreen = new GUIMainMenu();
+		openGUI(new GUiMainMenu());
 	}
 	
 	/**
