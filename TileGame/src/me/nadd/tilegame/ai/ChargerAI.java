@@ -6,7 +6,7 @@ import me.nadd.tilegame.Utils;
  * A basic AI that charges up and moves in bursts.
  */
 public class ChargerAI extends BasicAI {
-    //The amount of ticks it takes to fully charge.
+    //The amount of ticks it takes to fully charge up.
     private int chargeTime;
     //The amount of ticks a "burst" or sprint lasts for.
     private int sprintTime;
@@ -28,15 +28,15 @@ public class ChargerAI extends BasicAI {
         this.setTickDelay(1);
         
     	if (current <= chargeTime) {
-    		//  WHILE CHARGING  //
+    	    //  WHILE CHARGING UP //
             this.setTickDelay(CHARGE_DELAY);
-    		super.randMove();
+            super.randMove();
     	} else if (current <= sprintTime) {
             //  WHILE SPRINTING  //
-    		super.smartMove();
+            super.smartMove();
     	} else {
             //This resets the counter. It's set to -1 because it gets incremented after this.
-    		current = -1;
+            current = -1;
     	}
         
     	current++;

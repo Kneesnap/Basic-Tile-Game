@@ -64,7 +64,7 @@ public class GameMap {
                 		&& y < getYSize()){
                                 //Stops generation at the bottom wall.
                                         
-                                        //Adds a new wall. (Obstacle).
+                                        //Adds a new wall (ObstacleTile).
 					addTile(new ObstacleTile(x, y));
 					continue;
 				}
