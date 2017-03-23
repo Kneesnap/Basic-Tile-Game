@@ -92,6 +92,8 @@ public class Core {
 		
 		//  START GAME  //
 		GameRender.openGUI(new GUIGame());
+                if (level != 1)
+                    Core.playSound(Sound.NEXT_LEVEL);
 	}
 	
         /**

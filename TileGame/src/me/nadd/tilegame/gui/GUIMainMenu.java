@@ -13,7 +13,7 @@ public class GUIMainMenu extends GUI {
 	
         @Override
 	protected void render() {
-		this.setBackgroundColor(1, 0, 1, 0);
+		this.setBackgroundColor(0, 0, 0, 0);
 		this.setDrawColor(1, 1, 0);
 		drawRect(getMouseX() - 10, getMouseY() - 10, getMouseX() + 10, getMouseY() + 10);
 	}

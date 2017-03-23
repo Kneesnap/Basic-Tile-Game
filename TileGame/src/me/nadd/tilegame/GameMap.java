@@ -86,7 +86,7 @@ public class GameMap {
 				}
                                 
 				//Decides what type/amount of enemy to place
-                                //based on the level.
+                                //based on the level. Plays different music.
                                 
                                 //Level 5 spawns double the enemies.
 				if (level == 5){
@@ -124,7 +124,7 @@ public class GameMap {
 	 * TODO: Clean this up, create a modularized level generator that accepts settings.
 	 */
 	public void generateMap(){
-		int entityCount = Core.getLevel();
+		int level = Core.getLevel();
 		
 		//  SET ALL TILES TO DEFAULT  //
 		for(int y = 0; y < tiles.length; y++)
@@ -135,7 +135,7 @@ public class GameMap {
 		generateObstacles();
 		
 		//  ADD ENTITIES  //
-		generateEntities(entityCount);
+		generateEntities(level);
 		
 		//  CREATE GOAL  //
 		addTile(new GoalTile(getXSize() - 1, 0));

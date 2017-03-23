@@ -42,6 +42,13 @@ public class GUIGame extends GUI {
 
 	@Override
 	public void initGUI() {
-		Core.playMusic(Sound.DEFAULT_GAME_MUSIC);
+                int level = Core.getLevel();
+                
+                if (level == 5 || level == 7)
+                    Core.playMusic(Sound.HORDE_LEVEL_MUSIC);
+                else if (level > 5)
+                    Core.playMusic(Sound.HIGHER_LEVEL_MUSIC);
+                else
+                    Core.playMusic(Sound.DEFAULT_GAME_MUSIC);
 	}
 }
