@@ -44,10 +44,13 @@ public class GUIGame extends GUI {
 	public void initGUI() {
                 int level = Core.getLevel();
                 
+                //On horde levels plays a certain piece.
                 if (level == 5 || level == 7)
                     Core.playMusic(Sound.HORDE_LEVEL_MUSIC);
+                //On levels higer than five plays a certain piece.
                 else if (level > 5)
                     Core.playMusic(Sound.HIGHER_LEVEL_MUSIC);
+                //Otherwise play the default music.
                 else
                     Core.playMusic(Sound.DEFAULT_GAME_MUSIC);
 	}
