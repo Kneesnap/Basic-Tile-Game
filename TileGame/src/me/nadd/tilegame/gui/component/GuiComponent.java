@@ -37,6 +37,13 @@ public abstract class GuiComponent {
 		this.xPos = x;
 		this.yPos = y;
 	}
+        
+        /**
+         * Calls when this GUI is unloaded.
+         */
+        public void destroy() {
+            
+        }
 	
 	/**
 	 * Render this gui component.

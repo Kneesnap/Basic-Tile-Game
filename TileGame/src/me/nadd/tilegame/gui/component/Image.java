@@ -1,4 +1,4 @@
-package me.nadd.tilegame;
+package me.nadd.tilegame.gui.component;
 
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
@@ -9,19 +9,20 @@ import java.io.*;
 import java.nio.*;
 
 import static java.lang.Math.*;
+import me.nadd.tilegame.GameRender;
 import static me.nadd.tilegame.IOUtil.ioResourceToByteBuffer;
+import me.nadd.tilegame.gui.GUI;
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.*;
-import static org.lwjgl.system.MemoryUtil.*;
 
 
 /**
  * insert relevant informations
  * @author i need healing
  */
-public final class Image {
+public final class Image extends GuiComponent {
 
     private final ByteBuffer image;
 
@@ -33,13 +34,12 @@ public final class Image {
     private int ww = 800;
     private int wh = 600;
 
-    private boolean ctrlDown;
-
     private int scale;
+    private int texID;
 
-    private Callback debugProc;
-
-    public Image(String imagePath) {
+    public Image(int x, int y, String imagePath) {
+        super(x, y);
+        
         ByteBuffer imageBuffer;
         try {
             imageBuffer = ioResourceToByteBuffer(imagePath, 8 * 1024);
@@ -71,31 +71,19 @@ public final class Image {
         this.w = w.get(0);
         this.h = h.get(0);
         this.comp = comp.get(0);
-    }
-
-    private void windowSizeChanged(long window, int width, int height) {
-        this.ww = width;
-        this.wh = height;
-
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0.0, width, height, 0.0, -1.0, 1.0);
-        glMatrixMode(GL_MODELVIEW);
-    }
-
-    private static void framebufferSizeChanged(long window, int width, int height) {
-        glViewport(0, 0, width, height);
+        this.window = GameRender.getWindow();
+        
+        this.texID = glGenTextures();
     }
 
     private void setScale(int scale) {
         this.scale = max(-3, scale);
     }
-
-    private void loop() {
-        int texID = glGenTextures();
-
+    
+    public void render(GUI gui) {
+        gui.setDrawColor(1, 1, 1);
         glBindTexture(GL_TEXTURE_2D, texID);
-
+        
         if (comp == 3) {
             if ((w & 3) != 0) {
                 glPixelStorei(GL_UNPACK_ALIGNMENT, 2 - (w & 1));
@@ -112,51 +100,44 @@ public final class Image {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
         glEnable(GL_TEXTURE_2D);
+        
+        glClear(GL_COLOR_BUFFER_BIT);
 
-        while (!glfwWindowShouldClose(window)) {
-            glfwPollEvents();
+        float scaleFactor = 1.0f + scale * 0.25f;
+            
+        glScalef(scaleFactor, scaleFactor, 1f);
 
-            glClear(GL_COLOR_BUFFER_BIT);
+        glBegin(GL_QUADS);
+        {
+            glTexCoord2f(0.0f, 0.0f);
+            glVertex2f(0.0f, 0.0f);
 
-            float scaleFactor = 1.0f + scale * 0.25f;
+            glTexCoord2f(1.0f, 0.0f);
+            glVertex2f(w, 0.0f);
 
-            glPushMatrix();
-            glScalef(scaleFactor, scaleFactor, 1f);
+            glTexCoord2f(1.0f, 1.0f);
+            glVertex2f(w, h);
 
-            glBegin(GL_QUADS);
-            {
-                glTexCoord2f(0.0f, 0.0f);
-                glVertex2f(0.0f, 0.0f);
-
-                glTexCoord2f(1.0f, 0.0f);
-                glVertex2f(w, 0.0f);
-
-                glTexCoord2f(1.0f, 1.0f);
-                glVertex2f(w, h);
-
-                glTexCoord2f(0.0f, 1.0f);
-                glVertex2f(0.0f, h);
-            }
-            glEnd();
-
-            glPopMatrix();
-
-            glfwSwapBuffers(window);
+            glTexCoord2f(0.0f, 1.0f);
+            glVertex2f(0.0f, h);
         }
-
+        glEnd();
+        
         glDisable(GL_TEXTURE_2D);
     }
 
-    private void destroy() {
+    @Override
+    public void destroy() {
         stbi_image_free(image);
-
-        if (debugProc != null) {
-            debugProc.free();
-        }
 
         glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
         glfwTerminate();
         glfwSetErrorCallback(null).free();
+    }
+
+    @Override
+    public void onMouseClick(GUI gui) {
+        
     }
 }

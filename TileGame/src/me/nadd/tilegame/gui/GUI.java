@@ -53,15 +53,17 @@ public abstract class GUI {
 	}
 	
 	public void draw() {
-		//  DRAW THIS GUI  //
-		this.render();
-		
 		//  DRAW ALL GUI COMPONENTS  //
 		for(GuiComponent gc : this.components){
 			GL11.glPushMatrix();
 			gc.render(this);
 			GL11.glPopMatrix();
 		}
+                
+                //  DRAW THIS GUI  //
+                GL11.glPushMatrix();
+		this.render();
+                GL11.glPopMatrix();
 	}
 	
 	/**

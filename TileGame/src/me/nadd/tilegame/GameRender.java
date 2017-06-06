@@ -50,19 +50,32 @@ public class GameRender {
 		glfwSwapInterval(0);
 		startRendering();
 	}
-	
+        
+        private static void windowSizeChanged(long window, int width, int height) {
+            GUI.updateScreenDimensions();
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            glOrtho(0, GUI.getWidth(), GUI.getHeight(), 0, -1, 1);
+            glMatrixMode(GL_MODELVIEW);
+        }
+        
+        private static void framebufferSizeChanged(long window, int width, int height) {
+            glViewport(0, 0, width, height);
+        }
+        
 	private static void startRendering() {
 		//Continues until the window is shut.
+                
+            GLFW.glfwSetWindowSizeCallback(mainWindowId, GameRender::windowSizeChanged);
+            GLFW.glfwSetFramebufferSizeCallback(mainWindowId, GameRender::framebufferSizeChanged);
+            windowSizeChanged(mainWindowId, GUI.getWidth(), GUI.getHeight());
+            
         while (!isClosed()) {
         	//Clears the frame buffer.
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             
             // Set 0, 0 to be the top left corner
-            GUI.updateScreenDimensions();
-    		glMatrixMode(GL_PROJECTION);
-    		glLoadIdentity();
-    		glOrtho(0, GUI.getWidth(), GUI.getHeight(), 0, 1, -1);
-    		glMatrixMode(GL_MODELVIEW);
+            
     		
             //Render game.
             GL11.glPushMatrix();
