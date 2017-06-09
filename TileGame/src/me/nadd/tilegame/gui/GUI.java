@@ -6,6 +6,7 @@ import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import me.nadd.tilegame.Drawable;
 
 import me.nadd.tilegame.gui.component.GuiComponent;
 import me.nadd.tilegame.GameRender;
@@ -13,6 +14,7 @@ import me.nadd.tilegame.GameRender;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.ReadableColor;
 
 public abstract class GUI {
 	
@@ -139,4 +141,14 @@ public abstract class GUI {
 	protected void addComponent(GuiComponent c) {
 		this.components.add(c);
 	}
+        
+        protected void draw(Drawable d) {
+            glPushMatrix();
+            d.render(this);
+            glPopMatrix();
+        }
+        
+        public void color(ReadableColor c) {
+            GL11.glColor3f(c.getRed() / 255F, c.getGreen() / 255F, c.getBlue() / 255F);
+        }
 }

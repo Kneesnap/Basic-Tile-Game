@@ -1,5 +1,6 @@
 package me.nadd.tilegame;
 
+import me.nadd.tilegame.gui.GUI;
 import me.nadd.tilegame.tiles.Tile;
 
 import org.lwjgl.util.ReadableColor;
@@ -11,6 +12,8 @@ import org.lwjgl.util.ReadableColor;
 public interface Drawable {
 
 	public Tile getTile();
+        
+        public void render(GUI gui);
 	
 	public ReadableColor getColor();
 }

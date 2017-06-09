@@ -16,6 +16,7 @@ public enum Sound {
         HORDE_LEVEL_MUSIC("HardModeMusic.mp3");
 	
 	private final Media audio;
+        
 	Sound(String file) {
 		File soundFile = new File("src/resources/" + file);
                 this.audio = soundFile.exists() ?

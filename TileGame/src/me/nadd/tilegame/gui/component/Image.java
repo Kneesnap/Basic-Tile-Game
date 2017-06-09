@@ -24,73 +24,43 @@ import static org.lwjgl.stb.STBImage.*;
  */
 public final class Image extends GuiComponent {
 
-    private final ByteBuffer image;
+    private final Images image;
+    
+    private int x;
+    private int y;
+    private int size;
+    private float scale = 0;
 
-    private final int w;
-    private final int h;
-    private final int comp;
-
-    private long window;
-    private int ww = 800;
-    private int wh = 600;
-
-    private int scale;
-    private int texID;
-
-    public Image(int x, int y, String imagePath) {
+    
+    public Image(int x, int y, int size, Images image) {
         super(x, y);
-        
-        ByteBuffer imageBuffer;
-        try {
-            imageBuffer = ioResourceToByteBuffer(imagePath, 8 * 1024);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        IntBuffer w    = BufferUtils.createIntBuffer(1);
-        IntBuffer h    = BufferUtils.createIntBuffer(1);
-        IntBuffer comp = BufferUtils.createIntBuffer(1);
-
-        // Use info to read image metadata without decoding the entire image.
-        // We don't need this for this demo, just testing the API.
-        if (!stbi_info_from_memory(imageBuffer, w, h, comp)) {
-            throw new RuntimeException("Failed to read image information: " + stbi_failure_reason());
-        }
-
-        System.out.println("Image width: " + w.get(0));
-        System.out.println("Image height: " + h.get(0));
-        System.out.println("Image components: " + comp.get(0));
-        System.out.println("Image HDR: " + stbi_is_hdr_from_memory(imageBuffer));
-
-        // Decode the image
-        image = stbi_load_from_memory(imageBuffer, w, h, comp, 0);
-        if (image == null) {
-            throw new RuntimeException("Failed to load image: " + stbi_failure_reason());
-        }
-
-        this.w = w.get(0);
-        this.h = h.get(0);
-        this.comp = comp.get(0);
-        this.window = GameRender.getWindow();
-        
-        this.texID = glGenTextures();
+        this.x = x;
+        this.y = y;
+        this.size = size;
+        this.image = image;
     }
 
     private void setScale(int scale) {
         this.scale = max(-3, scale);
     }
     
+    public Image setLoc(int x, int y){
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+    
     public void render(GUI gui) {
-        gui.setDrawColor(1, 1, 1);
-        glBindTexture(GL_TEXTURE_2D, texID);
+        //gui.setDrawColor(1, 1, 1);
+        glBindTexture(GL_TEXTURE_2D, image.getTextureId());
         
-        if (comp == 3) {
-            if ((w & 3) != 0) {
-                glPixelStorei(GL_UNPACK_ALIGNMENT, 2 - (w & 1));
+        if (image.getComp() == 3) {
+            if ((image.getWidth() & 3) != 0) {
+                glPixelStorei(GL_UNPACK_ALIGNMENT, 2 - (image.getWidth() & 1));
             }
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, image.getWidth(), image.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image.getBuffer());
         } else {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getWidth(), image.getHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getBuffer());
 
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -101,7 +71,7 @@ public final class Image extends GuiComponent {
 
         glEnable(GL_TEXTURE_2D);
         
-        glClear(GL_COLOR_BUFFER_BIT);
+        //glClear(GL_COLOR_BUFFER_BIT);
 
         float scaleFactor = 1.0f + scale * 0.25f;
             
@@ -109,17 +79,21 @@ public final class Image extends GuiComponent {
 
         glBegin(GL_QUADS);
         {
-            glTexCoord2f(0.0f, 0.0f);
-            glVertex2f(0.0f, 0.0f);
-
-            glTexCoord2f(1.0f, 0.0f);
-            glVertex2f(w, 0.0f);
-
-            glTexCoord2f(1.0f, 1.0f);
-            glVertex2f(w, h);
-
-            glTexCoord2f(0.0f, 1.0f);
-            glVertex2f(0.0f, h);
+                //Top Left
+                glTexCoord2f(0.0f, 0.0f);
+                glVertex2f(x, y);
+                
+                //Bottom Left
+                glTexCoord2f(1.0f, 0.0f);
+                glVertex2f(x+size, y);
+                
+                //Top right
+                glTexCoord2f(1.0f, 1.0f);
+                glVertex2f(x+size, y+size);
+                
+                //Bottom right
+                glTexCoord2f(0.0f, 1.0f);
+                glVertex2f(x, y+size);
         }
         glEnd();
         
@@ -128,14 +102,11 @@ public final class Image extends GuiComponent {
 
     @Override
     public void destroy() {
-        stbi_image_free(image);
-
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
+        stbi_image_free(image.getBuffer());
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
-
+    
     @Override
     public void onMouseClick(GUI gui) {
         

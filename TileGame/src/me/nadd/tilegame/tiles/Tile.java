@@ -5,7 +5,11 @@ import org.lwjgl.util.ReadableColor;
 
 import me.nadd.tilegame.Core;
 import me.nadd.tilegame.Drawable;
+import me.nadd.tilegame.GameRender;
 import me.nadd.tilegame.entities.Entity;
+import me.nadd.tilegame.gui.GUI;
+import static me.nadd.tilegame.gui.GUI.getWidth;
+import org.lwjgl.opengl.GL11;
 
 /**
  * Tile - Represents a basic tile on the map.
@@ -78,4 +82,16 @@ public class Tile implements Drawable {
 	public ReadableColor getColor() {
 		return Color.BLACK;
 	}
+
+    @Override
+    public void render(GUI gui) {
+        gui.color(getColor());
+        int x = getX() * getScaledTileSize();
+        int y = getY() * getScaledTileSize();
+	gui.drawRect(x, y, x + getScaledTileSize() - 1, y + getScaledTileSize() - 1);
+    }
+    
+    public static int getScaledTileSize() {
+        return GameRender.getCurrentScreen().getWidth() / (Core.getMap().getTiles().length * 2);
+    }
 }

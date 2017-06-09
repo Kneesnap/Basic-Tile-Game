@@ -6,7 +6,11 @@ import org.lwjgl.util.ReadableColor;
 import me.nadd.tilegame.Core;
 import me.nadd.tilegame.Drawable;
 import me.nadd.tilegame.ai.AI;
+import me.nadd.tilegame.gui.GUI;
+import me.nadd.tilegame.gui.component.Image;
+import me.nadd.tilegame.gui.component.Images;
 import me.nadd.tilegame.tiles.Tile;
+import static me.nadd.tilegame.tiles.Tile.getScaledTileSize;
 
 /**
  * Base Entity class
@@ -20,6 +24,7 @@ public class Entity implements Drawable {
 	private int y;
 	private AI ai; // ai controls entity behavior
 	private boolean isAlive = true; //isAlive represents 
+        private Image i = new Image(0, 0, getScaledTileSize(), Images.TEST);
 	
 	public Entity(int x, int y) {
 		this(x, y, null);
@@ -210,4 +215,11 @@ public class Entity implements Drawable {
 		
 		return closest;
 	}
+
+    @Override
+    public void render(GUI gui) {
+        gui.color(getColor());
+        i.setLoc(x * getScaledTileSize(), y * getScaledTileSize());
+        i.render(gui);
+    }
 }
