@@ -9,6 +9,8 @@ import me.nadd.tilegame.GameRender;
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.gui.GUI;
 import static me.nadd.tilegame.gui.GUI.getWidth;
+import me.nadd.tilegame.gui.component.Image;
+import me.nadd.tilegame.gui.component.Images;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -20,10 +22,15 @@ import org.lwjgl.opengl.GL11;
 public class Tile implements Drawable {
 	private final int x;
 	private final int y;
+        private Image i;
   
-	public Tile(int x, int y){
+	public Tile(int x, int y, Images i){
 		this.x = x;
 		this.y = y;
+                if (i != null)
+                    this.i = new Image(0, 0, getScaledTileSize(), i);
+                else
+                    this.i = new Image(0, 0, getScaledTileSize(), Images.BLANK);
         }
   
 	/**
@@ -88,7 +95,9 @@ public class Tile implements Drawable {
         gui.color(getColor());
         int x = getX() * getScaledTileSize();
         int y = getY() * getScaledTileSize();
-	gui.drawRect(x, y, x + getScaledTileSize() - 1, y + getScaledTileSize() - 1);
+	i.setLoc(x, y);
+        i.render(gui);
+        
     }
     
     public static int getScaledTileSize() {

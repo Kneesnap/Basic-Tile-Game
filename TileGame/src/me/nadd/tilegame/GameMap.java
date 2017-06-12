@@ -129,7 +129,7 @@ public class GameMap {
 		//  SET ALL TILES TO DEFAULT  //
 		for(int y = 0; y < tiles.length; y++)
 			for(int x = 0; x < tiles[y].length; x++)
-				addTile(new Tile(x, y));
+				addTile(new Tile(x, y, null));
 		
 		//  ADD OBSTACLE TILES  //
 		generateObstacles();

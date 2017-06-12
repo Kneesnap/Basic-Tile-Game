@@ -18,7 +18,7 @@ public enum Sound {
 	private final Media audio;
         
 	Sound(String file) {
-		File soundFile = new File("src/resources/" + file);
+		File soundFile = new File("build//classes//resources//" + file);
                 this.audio = soundFile.exists() ?
                         new Media(soundFile.toURI().toString()) : null;
                 

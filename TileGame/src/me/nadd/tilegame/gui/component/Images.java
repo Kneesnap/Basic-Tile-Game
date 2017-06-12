@@ -21,8 +21,11 @@ import static org.lwjgl.stb.STBImage.stbi_load_from_memory;
  * @author voice
  */
 public enum Images {
-    
+    WALL("lwjgl33"),
+    BLANK("lwjgl35"),
+    GOAL("lwjgl34"),
     TEST("lwjgl32");
+    
     
     private final ByteBuffer buffer;
     private final int width;

@@ -6,6 +6,7 @@ import org.lwjgl.util.ReadableColor;
 import me.nadd.tilegame.Core;
 import me.nadd.tilegame.entities.Entity;
 import me.nadd.tilegame.entities.Player;
+import me.nadd.tilegame.gui.component.Images;
 
 /**
  * The goal tile
@@ -13,9 +14,8 @@ import me.nadd.tilegame.entities.Player;
  * @author Kneesnap
  */
 public class GoalTile extends Tile {
-
 	public GoalTile(int x, int y) {
-		super(x, y);
+		super(x, y, Images.GOAL);
 	}
 
 	@Override
