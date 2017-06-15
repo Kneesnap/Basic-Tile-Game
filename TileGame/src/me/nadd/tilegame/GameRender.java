@@ -3,6 +3,7 @@ package me.nadd.tilegame;
 import com.sun.javafx.application.PlatformImpl;
 import me.nadd.tilegame.gui.GUI;
 import me.nadd.tilegame.gui.GUIMainMenu;
+import static me.nadd.tilegame.tiles.Tile.getScaledTileSize;
 
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
@@ -39,7 +40,7 @@ public class GameRender {
 		//Create main window, set context.
 		GLFW.glfwInit();
 		//  CREATE WINDOW  //
-		mainWindowId = GLFW.glfwCreateWindow(800, 600, "TileGame", 0, 0);
+		mainWindowId = GLFW.glfwCreateWindow(600, 600, "TileGame", 0, 0);
 		GLFW.glfwSetKeyCallback(mainWindowId, new KeyboardListener());
 		
 		//  SETUP CONTEXT  //

@@ -107,6 +107,6 @@ public class Tile implements Drawable {
     }
     
     public static int getScaledTileSize() {
-        return GameRender.getCurrentScreen().getWidth() / (Core.getMap().getTiles().length * 2);
+        return GameRender.getCurrentScreen().getWidth() / (Core.getMap().getTiles().length);
     }
 }
