@@ -39,7 +39,7 @@ public enum Images {
         ByteBuffer imageBuffer;
         
         try {
-            imageBuffer = ioResourceToByteBuffer("C:\\Users\\voice\\Desktop\\" + fileName + ".png", 8 * 1024);
+            imageBuffer = ioResourceToByteBuffer("build//classes//resources//" + fileName + ".png", 8 * 1024);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

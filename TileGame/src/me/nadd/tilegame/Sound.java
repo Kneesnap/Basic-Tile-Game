@@ -11,9 +11,9 @@ public enum Sound {
         NEXT_LEVEL("NextLevelSounds.mp3"),
         
         //  MUSIC  //
-        DEFAULT_GAME_MUSIC("basicgamemusic.mp3"),
-        HIGHER_LEVEL_MUSIC("Progressive Tune.mp3"),
-        HORDE_LEVEL_MUSIC("HardModeMusic.mp3");
+        DEFAULT_GAME_MUSIC("basic1.mp3"),
+        HIGHER_LEVEL_MUSIC("basic3.mp3"),
+        HORDE_LEVEL_MUSIC("basic5boss.mp3");
 	
 	private final Media audio;
         
