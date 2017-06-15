@@ -42,30 +42,31 @@ public class GameMap {
          */
         public void generateObstacles(){
 		for(int y = 0; y < getYSize(); y++){
-			for(int x = 0; x < getXSize(); x++){
-				if (((x == (int) (getXSize() / 2) || x == (int) ((getXSize() / 2) - 1))
-                                //Generates in the middle of the map horizontally
-                                        
-                                ||(y == (int) (getYSize() / 2) || y == (int) ((getYSize() / 2) - 1)))
-                                //Generates in the middle of the map vertically.
-                                        
-				&& (Math.random() < 0.25)
+			for(int x = 0; x < getXSize(); x++){        
+				if ((Math.random() < 0.1)
                                 //Generates the random chance of placing a tile.
                                         
-				&& x > 0
+				&& x > 2
                                 //Stops generation at the left wall.
                                         
-                		&& x < getXSize()
+                		&& x < getXSize()-2
                                 //Stops generation at the right wall.
                                         
-                		&& y > 0 
+                		&& y > 2 
                                 //Stops generation at the top wall.
                                         
-                		&& y < getYSize()){
+                		&& y < getYSize()- 2){
                                 //Stops generation at the bottom wall.
                                         
-                                        //Adds a new wall (ObstacleTile).
+                                        //Adds a possible cluster of walls.
 					addTile(new ObstacleTile(x, y));
+                                        
+                                        if (Math.random() < 0.5)
+                                            addTile(new ObstacleTile(x-1, y));
+                                        if (Math.random() < 0.5)
+                                            addTile(new ObstacleTile(x+1, y));
+                                        if (Math.random() < 0.5)
+                                            addTile(new ObstacleTile(x, y-1));
 					continue;
 				}
 			}

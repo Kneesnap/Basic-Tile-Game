@@ -23,6 +23,8 @@ import static org.lwjgl.stb.STBImage.stbi_load_from_memory;
 public enum Images {
     WALL("lwjgl33"),
     BLANK("lwjgl35"),
+    BLANK2("lwjgl37"),
+    BLANK3("lwjgl38"),
     GOAL("lwjgl34"),
     TEST("lwjgl32");
     

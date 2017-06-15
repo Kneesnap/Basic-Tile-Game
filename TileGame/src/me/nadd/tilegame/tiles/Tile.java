@@ -29,8 +29,14 @@ public class Tile implements Drawable {
 		this.y = y;
                 if (i != null)
                     this.i = new Image(0, 0, getScaledTileSize(), i);
-                else
-                    this.i = new Image(0, 0, getScaledTileSize(), Images.BLANK);
+                else{
+                    if(Math.random() < 0.25)
+                        this.i = new Image(0, 0, getScaledTileSize(), Images.BLANK);
+                    else if (Math.random() < 0.25)
+                        this.i = new Image(0, 0, getScaledTileSize(), Images.BLANK3);
+                    else
+                        this.i = new Image(0, 0, getScaledTileSize(), Images.BLANK2);
+                }
         }
   
 	/**
@@ -87,7 +93,7 @@ public class Tile implements Drawable {
 
 	@Override
 	public ReadableColor getColor() {
-		return Color.BLACK;
+		return Color.DKGREY;
 	}
 
     @Override
