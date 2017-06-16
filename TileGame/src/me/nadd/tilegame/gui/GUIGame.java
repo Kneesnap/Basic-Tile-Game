@@ -19,8 +19,8 @@ public class GUIGame extends GUI {
 		this.setBackgroundColor(0, 0, 0, 0);
 		
                 //  DRAW MAP  //
-		//Core.getMap().getAllTiles().forEach(this::draw);
-                for (Tile[] arr1 : Core.getMap().getTiles()) {
+		Core.getMap().getAllTilesNearPlayer().forEach(this::draw);
+                /*for (Tile[] arr1 : Core.getMap().getTiles()) {
                     for (Tile t : arr1) {
                         for (Player p : Core.getPlayers()) {
                             if (p.distanceTo(t) < 8) {
@@ -29,17 +29,17 @@ public class GUIGame extends GUI {
                             }
                         }
                     }
-                }
+                }*/
                     
                 
                 //  DRAW ENTITIES  //
-		//Core.getEntities().forEach(this::draw);
-                for (Entity e : Core.getEntities())
+		Core.getEntities().forEach(this::draw);
+                /*for (Entity e : Core.getEntities())
                     for (Player p : Core.getPlayers()){
                         if (p.distanceTo(e) < 8)
                             draw(e);
                             break;
-                    }
+                    }*/
 		}
         
 	@Override

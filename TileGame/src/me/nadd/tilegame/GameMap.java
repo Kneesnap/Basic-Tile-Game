@@ -6,6 +6,7 @@ import java.util.List;
 import me.nadd.tilegame.entities.BasicEnemy;
 import me.nadd.tilegame.entities.ChargerEnemy;
 import me.nadd.tilegame.entities.Entity;
+import me.nadd.tilegame.entities.Player;
 import me.nadd.tilegame.entities.ZombieEnemy;
 import me.nadd.tilegame.tiles.GoalTile;
 import me.nadd.tilegame.tiles.ObstacleTile;
@@ -159,6 +160,20 @@ public class GameMap {
 				tl.add(tile);
 		return tl;
 	}
+        
+        /**
+         * Gets the tiles near the player.
+         */
+        public List<Tile> getAllTilesNearPlayer(){
+            List<Tile> tl = new ArrayList<>();
+		for(Tile[] arr : tiles)
+			for(Tile tile : arr)
+                            for (Player p : Core.getPlayers()){
+                                if (Math.abs(p.getX() - tile.getX()) < 4 && Math.abs(p.getY() - tile.getY()) < 4)
+                                    tl.add(tile);
+                            }
+		return tl;
+        }
   
 	/**
 	 * Gets the tile at a given position.
