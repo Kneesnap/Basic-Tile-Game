@@ -20,7 +20,7 @@ public abstract class GUI {
 	
 	private static int height;
 	private static int width;
-	private List<GuiComponent> components = new ArrayList<GuiComponent>();
+	List<GuiComponent> components = new ArrayList<GuiComponent>();
 	
 	public static int getWidth(){
 		return width;

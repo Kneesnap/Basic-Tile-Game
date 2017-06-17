@@ -101,6 +101,9 @@ public class Core {
          */
 	public static void doGameTick(){
 		tickCount = tickCount % 500 + 1;
+                //  MAP TICK  //
+                
+                
 		//  ENTITY TICK  //
 		List<Entity> ent = new ArrayList<Entity>();
 		getEntities().forEach(ent::add);
